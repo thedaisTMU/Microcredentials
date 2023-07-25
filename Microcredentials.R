@@ -346,9 +346,10 @@ ggplot(combined_data, aes(x = `Difference`, y = `Common Skill`, fill = Group)) +
        x = "Difference", y = "Common Skill", fill = "Group",
        caption = "Source: Linkedin Insights Data" ) +
   dais.base.theme() +
-  theme(panel.background=element_blank(), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  theme(panel.background=element_blank(), 
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, family = "Replica-Regular")) +
   geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
-            position = position_dodge(width = 0.9), vjust = 0.5, color = "black") 
+            position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
 
 
 ggsave("Figure_1.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
@@ -469,9 +470,10 @@ ggplot(combined_data, aes(x = `Difference`, y = `Industry`, fill = Group)) +
        x = "Difference", y = "Industry", fill = "Group",
        caption = "Source: Linkedin Insights Data" ) +
   dais.base.theme() +
-  theme(panel.background=element_blank(), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  theme(panel.background=element_blank(), 
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, family = "Replica-Regular")) +
   geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
-            position = position_dodge(width = 0.9), vjust = 0.5, color = "black") 
+            position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
 
 ggsave("Figure_2.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
@@ -585,9 +587,10 @@ ggplot(combined_data, aes(x = `Difference`, y = `Common Title`, fill = Group)) +
        x = "Difference", y = "Common Title", fill = "Group",
        caption = "Source: Linkedin Insights Data" ) +
   dais.base.theme() +
-  theme(panel.background=element_blank(), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  theme(panel.background=element_blank(), 
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, family = "Replica-Regular")) +
   geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
-            position = position_dodge(width = 0.9), vjust = 0.5, color = "black") 
+            position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
 
 ggsave("Figure_3.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
@@ -709,9 +712,10 @@ ggplot(combined_data_with_broad_field, aes(x = `Difference`, y = `Study_Field_an
        x = "Difference", y = "Field of Study", fill = "Group",
        caption = "Source: Linkedin Insights Data" ) +
   dais.base.theme() +
-  theme(panel.background=element_blank(), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  theme(panel.background=element_blank(), 
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, family = "Replica-Regular")) +
   geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
-            position = position_dodge(width = 0.9), vjust = 0.5, color = "black") 
+            position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
 
 ggsave("Figure_4.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
@@ -857,9 +861,10 @@ ggplot(combined_data, aes(x = `Difference`, y = `Common Skill`, fill = Group)) +
        x = "Difference", y = "Common Skill", fill = "Group",
        caption = "Source: Linkedin Insights Data" ) +
   dais.base.theme() +
-  theme(panel.background=element_blank(), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  theme(panel.background=element_blank(), 
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, family = "Replica-Regular")) +
   geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
-            position = position_dodge(width = 0.9), vjust = 0.5, color = "black") 
+            position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
 
 ggsave("Figure_5.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
@@ -975,9 +980,10 @@ ggplot(combined_data, aes(x = `Difference`, y = `Industry`, fill = Group)) +
        x = "Difference", y = "Industry", fill = "Group",
        caption = "Source: Linkedin Insights Data" ) +
   dais.base.theme() +
-  theme(panel.background=element_blank(), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  theme(panel.background=element_blank(), 
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, family = "Replica-Regular")) +
   geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
-            position = position_dodge(width = 0.9), vjust = 0.5, color = "black") 
+            position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
 
 ggsave("Figure_6.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
@@ -1091,9 +1097,10 @@ ggplot(combined_data, aes(x = `Difference`, y = `Common Title`, fill = Group)) +
        x = "Difference", y = "Common Title", fill = "Group",
        caption = "Source: Linkedin Insights Data" ) +
   dais.base.theme() +
-  theme(panel.background=element_blank(), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  theme(panel.background=element_blank(), 
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, family = "Replica-Regular")) +
   geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
-            position = position_dodge(width = 0.9), vjust = 0.5, color = "black") 
+            position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
 
 
 ggsave("Figure_7.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
@@ -1216,9 +1223,10 @@ ggplot(combined_data_with_broad_field, aes(x = `Difference`, y = `Study_Field_an
        x = "Difference", y = "Field of Study", fill = "Group",
        caption = "Source: Linkedin Insights Data" ) +
   dais.base.theme() +
-  theme(panel.background=element_blank(), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  theme(panel.background=element_blank(), 
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, family = "Replica-Regular")) +
   geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
-            position = position_dodge(width = 0.9), vjust = 0.5, color = "black") 
+            position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
 
 
 ggsave("Figure_8.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
