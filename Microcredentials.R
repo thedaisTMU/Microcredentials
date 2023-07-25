@@ -310,13 +310,13 @@ filtered_data_withoutmc <- data[`Common Skill` %in% top_10_diff_withoutmc$`Commo
 #   theme(axis.text.x = element_text(angle = 90, hjust = 0.5)) +
 #   scale_fill_manual(values = c("#eb0072", "#6bbfae"))
 # 
- ggplot(filtered_data_mc, aes(x = `Common Skill`, y = NormalizedProfessionals, fill = Group)) +
-   geom_bar(stat = "identity", position = "dodge") +
-   labs(x = "Common Skill", y = "Normalized Number of Professionals", title = "Comparison of Professionals with and without MC for top 10 skill differences") +
-   theme(panel.background=element_blank()) +
-   dais.base.theme() +
-   theme(axis.text.x = element_text(angle = 90, hjust = 0.5)) +
-   scale_fill_manual(values = c("#eb0072", "#6bbfae"))
+ # ggplot(filtered_data_mc, aes(x = `Common Skill`, y = NormalizedProfessionals, fill = Group)) +
+ #   geom_bar(stat = "identity", position = "dodge") +
+ #   labs(x = "Common Skill", y = "Normalized Number of Professionals", title = "Comparison of Professionals with and without MC for top 10 skill differences") +
+ #   theme(panel.background=element_blank()) +
+ #   dais.base.theme() +
+ #   theme(axis.text.x = element_text(angle = 90, hjust = 0.5)) +
+ #   scale_fill_manual(values = c("#eb0072", "#6bbfae"))
 # 
 # ggplot(filtered_data_withoutmc, aes(x = `Common Skill`, y = NormalizedProfessionals, fill = Group)) +
 #   geom_bar(stat = "identity", position = "dodge") +
@@ -341,12 +341,19 @@ combined_data <- rbind(transform(top_5_diff_mc, Group = "With MC"),
 ggplot(combined_data, aes(x = `Difference`, y = `Common Skill`, fill = Group)) +
   geom_bar(stat = "identity", position = position_dodge()) +
   scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
-  labs(x = "Difference", y = "Common Skill", fill = "Group") +
+  labs(title = "Figure 1", 
+       subtitle = "Comparison of % Differences in Skills with and without MC", 
+       x = "Difference", y = "Common Skill", fill = "Group",
+       caption = "Source: Linkedin Insights Data" ) +
   dais.base.theme() +
-  theme(panel.background=element_blank()) +
-  ggtitle("Comparison of % Differences in Skills with and without MC") +
+  theme(panel.background=element_blank(), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
-            position = position_dodge(width = 0.9), vjust = 0.5, color = "black")
+            position = position_dodge(width = 0.9), vjust = 0.5, color = "black") 
+
+
+ggsave("Figure_1.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+
+
 
 
 #write.xlsx(combined_data, "topskills_datascientists.xlsx", rowNames = FALSE)
@@ -457,12 +464,16 @@ combined_data <- rbind(transform(top_5_diff_mc, Group = "With MC"),
 ggplot(combined_data, aes(x = `Difference`, y = `Industry`, fill = Group)) +
   geom_bar(stat = "identity", position = position_dodge()) +
   scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
-  labs(x = "Difference", y = "Industry", fill = "Group") +
+  labs(title = "Figure 1", 
+       subtitle = "Comparison of % Differences in Industry with and without MC", 
+       x = "Difference", y = "Industry", fill = "Group",
+       caption = "Source: Linkedin Insights Data" ) +
   dais.base.theme() +
-  theme(panel.background=element_blank()) +
-  ggtitle("Comparison of % Differences in Industries with and without MC") +
+  theme(panel.background=element_blank(), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
-            position = position_dodge(width = 0.9), vjust = 0.5, color = "black")
+            position = position_dodge(width = 0.9), vjust = 0.5, color = "black") 
+
+ggsave("Figure_2.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
 
 
@@ -569,12 +580,16 @@ combined_data <- rbind(transform(top_5_diff_mc, Group = "With MC"),
 ggplot(combined_data, aes(x = `Difference`, y = `Common Title`, fill = Group)) +
   geom_bar(stat = "identity", position = position_dodge()) +
   scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
-  labs(x = "Difference", y = "Common Title", fill = "Group") +
+  labs(title = "Figure 1", 
+       subtitle = "Comparison of % Differences in Common Titles with and without MC", 
+       x = "Difference", y = "Common Title", fill = "Group",
+       caption = "Source: Linkedin Insights Data" ) +
   dais.base.theme() +
-  theme(panel.background=element_blank()) +
-  ggtitle("Comparison of % Differences in Common Titles with and without MC") +
+  theme(panel.background=element_blank(), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
-            position = position_dodge(width = 0.9), vjust = 0.5, color = "black")
+            position = position_dodge(width = 0.9), vjust = 0.5, color = "black") 
+
+ggsave("Figure_3.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
 
 
@@ -682,19 +697,24 @@ combined_data_with_broad_field <- merge(combined_data, stemvsbhase,
                                         by.x = "Field of Study", 
                                         by.y = "Fields of study",all.x = TRUE)
 
+combined_data_with_broad_field <- combined_data_with_broad_field %>%
+  mutate(Study_Field_and_Broad = paste(`Field of Study`, "\n(", `Broad Field of Study`, ")", sep = ""))
 
 # Graph with bars on the right and left
-ggplot(combined_data_with_broad_field, aes(x = Difference, y = `Field of Study`, fill = Group)) +
+ggplot(combined_data_with_broad_field, aes(x = `Difference`, y = `Study_Field_and_Broad`, fill = Group)) +
   geom_bar(stat = "identity", position = position_dodge()) +
   scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
-  labs(x = "Difference", y = "Field of Study", fill = "Group") +
+  labs(title = "Figure 1", 
+       subtitle = "Comparison of % Differences in Fields of Study with and without MC", 
+       x = "Difference", y = "Field of Study", fill = "Group",
+       caption = "Source: Linkedin Insights Data" ) +
   dais.base.theme() +
-  theme(panel.background = element_blank()) +
-  ggtitle("Comparison of % Differences in Fields of Study with and without MC") +
-  geom_text(aes(label = percent(round(abs(Difference), 3))),
-            position = position_dodge(width = 0.9), vjust = 0.5, color = "black") +
-  # Add text labels for "Broad Field of Study" on the graph
-  geom_text(aes(label = `Broad Field of Study`), hjust = -0.8, vjust = 0.5, size = 3, color = "black")
+  theme(panel.background=element_blank(), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
+            position = position_dodge(width = 0.9), vjust = 0.5, color = "black") 
+
+ggsave("Figure_4.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+
 
 
 # Field of Study treemap
@@ -832,12 +852,16 @@ combined_data <- rbind(transform(top_5_diff_mc, Group = "With MC"),
 ggplot(combined_data, aes(x = `Difference`, y = `Common Skill`, fill = Group)) +
   geom_bar(stat = "identity", position = position_dodge()) +
   scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
-  labs(x = "Difference", y = "Common Skill", fill = "Group") +
+  labs(title = "Figure 1", 
+       subtitle = "Comparison of % Differences in Skills with and without MC", 
+       x = "Difference", y = "Common Skill", fill = "Group",
+       caption = "Source: Linkedin Insights Data" ) +
   dais.base.theme() +
-  theme(panel.background=element_blank()) +
-  ggtitle("Comparison of % Differences in Skills with and without MC") +
+  theme(panel.background=element_blank(), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
-            position = position_dodge(width = 0.9), vjust = 0.5, color = "black")
+            position = position_dodge(width = 0.9), vjust = 0.5, color = "black") 
+
+ggsave("Figure_5.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
 
 
@@ -946,12 +970,16 @@ combined_data <- rbind(transform(top_5_diff_mc, Group = "With MC"),
 ggplot(combined_data, aes(x = `Difference`, y = `Industry`, fill = Group)) +
   geom_bar(stat = "identity", position = position_dodge()) +
   scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
-  labs(x = "Difference", y = "Industry", fill = "Group") +
+  labs(title = "Figure 1", 
+       subtitle = "Comparison of % Differences in Industry with and without MC", 
+       x = "Difference", y = "Industry", fill = "Group",
+       caption = "Source: Linkedin Insights Data" ) +
   dais.base.theme() +
-  theme(panel.background=element_blank()) +
-  ggtitle("Comparison of % Differences in Industries with and without MC") +
+  theme(panel.background=element_blank(), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
-            position = position_dodge(width = 0.9), vjust = 0.5, color = "black")
+            position = position_dodge(width = 0.9), vjust = 0.5, color = "black") 
+
+ggsave("Figure_6.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
 
 
@@ -1058,13 +1086,17 @@ combined_data <- rbind(transform(top_5_diff_mc, Group = "With MC"),
 ggplot(combined_data, aes(x = `Difference`, y = `Common Title`, fill = Group)) +
   geom_bar(stat = "identity", position = position_dodge()) +
   scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
-  labs(x = "Difference", y = "Common Title", fill = "Group") +
+  labs(title = "Figure 1", 
+       subtitle = "Comparison of % Differences in Common Titles with and without MC", 
+       x = "Difference", y = "Common Title", fill = "Group",
+       caption = "Source: Linkedin Insights Data" ) +
   dais.base.theme() +
-  theme(panel.background=element_blank()) +
-  ggtitle("Comparison of % Differences in Common Titles with and without MC") +
+  theme(panel.background=element_blank(), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
-            position = position_dodge(width = 0.9), vjust = 0.5, color = "black")
+            position = position_dodge(width = 0.9), vjust = 0.5, color = "black") 
 
+
+ggsave("Figure_7.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
 
 
@@ -1172,20 +1204,24 @@ combined_data_with_broad_field <- merge(combined_data, stemvsbhase,
                                         by.x = "Field of Study", 
                                         by.y = "Fields of study",all.x = TRUE)
 
-
+combined_data_with_broad_field <- combined_data_with_broad_field %>%
+  mutate(Study_Field_and_Broad = paste(`Field of Study`, "\n(", `Broad Field of Study`, ")", sep = ""))
 
 # Graph with bars on the right and left
-ggplot(combined_data_with_broad_field, aes(x = Difference, y = `Field of Study`, fill = Group)) +
+ggplot(combined_data_with_broad_field, aes(x = `Difference`, y = `Study_Field_and_Broad`, fill = Group)) +
   geom_bar(stat = "identity", position = position_dodge()) +
   scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
-  labs(x = "Difference", y = "Field of Study", fill = "Group") +
+  labs(title = "Figure 1", 
+       subtitle = "Comparison of % Differences in Fields of Study with and without MC", 
+       x = "Difference", y = "Field of Study", fill = "Group",
+       caption = "Source: Linkedin Insights Data" ) +
   dais.base.theme() +
-  theme(panel.background = element_blank()) +
-  ggtitle("Comparison of % Differences in Fields of Study with and without MC") +
-  geom_text(aes(label = percent(round(abs(Difference), 3))),
-            position = position_dodge(width = 0.9), vjust = 0.5, color = "black") +
-  # Add text labels for "Broad Field of Study" on the graph
-  geom_text(aes(label = `Broad Field of Study`), hjust = -0.8, vjust = 0.5, size = 3, color = "black")
+  theme(panel.background=element_blank(), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
+            position = position_dodge(width = 0.9), vjust = 0.5, color = "black") 
+
+
+ggsave("Figure_8.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
 
 
