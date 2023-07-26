@@ -1128,6 +1128,8 @@ top_5_diff_mc <- head(data_diff, 5)
 combined_data <- rbind(transform(top_5_diff_mc, Group = "With MC"),
                        transform(top_5_diff_withoutmc, Group = "Without MC"))
 
+#Fix duplication issue in seniority excel file
+seniority2 <- distinct(seniority2, Titles, .keep_all = TRUE)
 
 #Add Seniority
 combined_data_with_seniority <- merge(combined_data, seniority2,
