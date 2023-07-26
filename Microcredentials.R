@@ -23,10 +23,16 @@ library(openxlsx)
 
 
 # Read in data
-# Create an empty list to store the data.tables
+# empty list to store the data tables
 data_list <- list()
 
+# files for fields of study and seniority
 stemvsbhase <- as.data.table(read_excel("Broad Fields of Study.xlsx"))
+
+seniority <- as.data.table(read_excel("Title Seniority.xlsx"))
+
+seniority2 <- as.data.table(read_excel("Title Seniority.xlsx", sheet = 2))
+
 
 #################################
 #IMPORT FIRST EXCEL FILE 
@@ -352,8 +358,30 @@ ggplot(combined_data, aes(x = `Difference`, y = `Common Skill`, fill = Group)) +
             position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
 
 
-ggsave("Figure_1.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+# plot.column.dais(data = combined_data,
+#                  x = "Difference",
+#                  cat = "Common Skill",
+#                  group.by = "Group",
+#                  plot.title = "Figure 1",
+#                  plot.fig.num = "",
+#                  order.bar = "none",
+#                  column.width = 0.6,
+#                  colours = c("#eb0072", "#6bbfae"),
+#                  col.invert = FALSE,
+#                  stacked = FALSE,
+#                  label = TRUE,
+#                  label.unit = "%",
+#                  label.adjust = 0.025,
+#                  language = "EN",
+#                  y.axis = "Common Skill",
+#                  legend.title = "Group",
+#                  caption = "Source: Linkedin Insights Data",
+#                  logo = FALSE,
+#                  export = FALSE)
 
+
+
+ggsave("Figure_1.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
 
 
@@ -482,15 +510,15 @@ ggsave("Figure_2.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = 
 
 # Industries treemap
 
-treemap(data,
-        index = c("Group", "Industry"),
-        vSize = "NormalizedProfessionals",
-        title = "Comparison of Industries",
-        palette = dais_palette,
-        #fontfamily.title = "Rooneysans",
-        #fontfamily.labels = "Rooneysans",
-        #fontfamily.legend = "Rooneysans",
-        fontsize.labels = 12)
+# treemap(data,
+#         index = c("Group", "Industry"),
+#         vSize = "NormalizedProfessionals",
+#         title = "Comparison of Industries",
+#         palette = dais_palette,
+#         #fontfamily.title = "Rooneysans",
+#         #fontfamily.labels = "Rooneysans",
+#         #fontfamily.legend = "Rooneysans",
+#         fontsize.labels = 12)
 
 ######################################################################
 
@@ -578,19 +606,32 @@ combined_data <- rbind(transform(top_5_diff_mc, Group = "With MC"),
                        transform(top_5_diff_withoutmc, Group = "Without MC"))
 
 
+#Fix duplication issue in seniority excel file
+seniority <- distinct(seniority, Titles, .keep_all = TRUE)
+
+#Add Seniority
+combined_data_with_seniority <- merge(combined_data, seniority,
+                                        by.x = "Common Title", 
+                                        by.y = "Titles",all.x = TRUE)
+
+combined_data_with_seniority <- combined_data_with_seniority %>%
+  mutate(Title_and_Seniority = paste(`Common Title`, "\n(", `Seniority`, ")", sep = ""))
+
+
 # Graph with bars on the right and left
-ggplot(combined_data, aes(x = `Difference`, y = `Common Title`, fill = Group)) +
+ggplot(combined_data_with_seniority, aes(x = `Difference`, y = `Title_and_Seniority`, fill = Group)) +
   geom_bar(stat = "identity", position = position_dodge()) +
   scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
   labs(title = "Figure 1", 
        subtitle = "Comparison of % Differences in Common Titles with and without MC", 
-       x = "Difference", y = "Common Title", fill = "Group",
+       x = "Difference", y = "Job Titles and Seniority Levels", fill = "Group",
        caption = "Source: Linkedin Insights Data" ) +
   dais.base.theme() +
   theme(panel.background=element_blank(), 
         axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, family = "Replica-Regular")) +
   geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
             position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
+
 
 ggsave("Figure_3.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
@@ -1088,13 +1129,22 @@ combined_data <- rbind(transform(top_5_diff_mc, Group = "With MC"),
                        transform(top_5_diff_withoutmc, Group = "Without MC"))
 
 
+#Add Seniority
+combined_data_with_seniority <- merge(combined_data, seniority2,
+                                      by.x = "Common Title", 
+                                      by.y = "Titles",all.x = TRUE)
+
+combined_data_with_seniority <- combined_data_with_seniority %>%
+  mutate(Title_and_Seniority = paste(`Common Title`, "\n(", `Seniority`, ")", sep = ""))
+
+
 # Graph with bars on the right and left
-ggplot(combined_data, aes(x = `Difference`, y = `Common Title`, fill = Group)) +
+ggplot(combined_data_with_seniority, aes(x = `Difference`, y = `Title_and_Seniority`, fill = Group)) +
   geom_bar(stat = "identity", position = position_dodge()) +
   scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
   labs(title = "Figure 1", 
        subtitle = "Comparison of % Differences in Common Titles with and without MC", 
-       x = "Difference", y = "Common Title", fill = "Group",
+       x = "Difference", y = "Job Titles and Seniority Levels", fill = "Group",
        caption = "Source: Linkedin Insights Data" ) +
   dais.base.theme() +
   theme(panel.background=element_blank(), 
