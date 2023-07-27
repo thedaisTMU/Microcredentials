@@ -343,43 +343,41 @@ combined_data <- rbind(transform(top_5_diff_mc, Group = "With MC"),
                        transform(top_5_diff_withoutmc, Group = "Without MC"))
 
 
-# Graph with bars on the right and left
-ggplot(combined_data, aes(x = `Difference`, y = `Common Skill`, fill = Group)) +
-  geom_bar(stat = "identity", position = position_dodge()) +
-  scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
-  labs(title = "Figure 1", 
-       subtitle = "Comparison of % Differences in Skills with and without MC", 
-       x = "Difference", y = "Common Skill", fill = "Group",
-       caption = "Source: Linkedin Insights Data" ) +
-  dais.base.theme() +
-  theme(panel.background=element_blank(), 
-        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, family = "Replica-Regular")) +
-  geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
-            position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
+# # Graph with bars on the right and left
+# ggplot(combined_data, aes(x = `Difference`, y = `Common Skill`, fill = Group)) +
+#   geom_bar(stat = "identity", position = position_dodge()) +
+#   scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
+#   labs(title = "Figure 1", 
+#        subtitle = "Comparison of % Differences in Skills with and without MC", 
+#        x = "Difference", y = "Common Skill", fill = "Group",
+#        caption = "Source: Linkedin Insights Data" ) +
+#   dais.base.theme() +
+#   theme(panel.background=element_blank(), 
+#         axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, family = "Replica-Regular")) +
+#   geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
+#             position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
 
 
-# plot.column.dais(data = combined_data,
-#                  x = "Difference",
-#                  cat = "Common Skill",
-#                  group.by = "Group",
-#                  plot.title = "Figure 1",
-#                  plot.fig.num = "",
-#                  order.bar = "none",
-#                  column.width = 0.6,
-#                  colours = c("#eb0072", "#6bbfae"),
-#                  col.invert = FALSE,
-#                  stacked = FALSE,
-#                  label = TRUE,
-#                  label.unit = "%",
-#                  label.adjust = 0.025,
-#                  language = "EN",
-#                  y.axis = "Common Skill",
-#                  legend.title = "Group",
-#                  caption = "Source: Linkedin Insights Data",
-#                  logo = FALSE,
-#                  export = FALSE)
+combined_data[, Difference := Difference * 100]
 
-
+ plot.column.dais(data = combined_data,
+                  x = Difference,
+                  cat = `Common Skill`,
+                  group.by = Group,
+                  plot.title = "Comparison of largest differences in skills between with and without MCs",
+                  plot.fig.num = "Figure 1",
+                  order.bar = "No",
+                  column.width = 0.6,
+                  colours = c("#eb0072", "#6bbfae"),
+                  label = TRUE,
+                  label.unit = "%",
+                  language = "EN",
+                  y.axis = "Common Skill",
+                  legend.title = "Group",
+                  caption = "Source: Linkedin Insights Data",
+                  logo = FALSE,
+                  export = FALSE)+coord_flip() +
+                  scale_y_continuous(labels = function(x) paste0(round(x, 1), "%")) 
 
 ggsave("Figure_1.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
@@ -394,15 +392,15 @@ dais_palette <- c("#DDA5C0", "#6bbfae" , "#ffa300",  "#002d72", "#eb0072" ,"#5bc
 
 
 # Common Skills treemap
-treemap(data,
-        index = c("Group", "Common Skill"),
-        vSize = "NormalizedProfessionals",
-        title = "Comparison of Common Skills",
-        palette = dais_palette,
-        #fontfamily.title = "Rooneysans",
-        #fontfamily.labels = "Rooneysans",
-        #fontfamily.legend = "Rooneysans",
-        fontsize.labels = 12)
+# treemap(data,
+#         index = c("Group", "Common Skill"),
+#         vSize = "NormalizedProfessionals",
+#         title = "Comparison of Common Skills",
+#         palette = dais_palette,
+#         #fontfamily.title = "Rooneysans",
+#         #fontfamily.labels = "Rooneysans",
+#         #fontfamily.legend = "Rooneysans",
+#         fontsize.labels = 12)
 
 ######################################################################
 
@@ -490,18 +488,42 @@ combined_data <- rbind(transform(top_5_diff_mc, Group = "With MC"),
 
 
 # Graph with bars on the right and left
-ggplot(combined_data, aes(x = `Difference`, y = `Industry`, fill = Group)) +
-  geom_bar(stat = "identity", position = position_dodge()) +
-  scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
-  labs(title = "Figure 1", 
-       subtitle = "Comparison of % Differences in Industry with and without MC", 
-       x = "Difference", y = "Industry", fill = "Group",
-       caption = "Source: Linkedin Insights Data" ) +
-  dais.base.theme() +
-  theme(panel.background=element_blank(), 
-        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, family = "Replica-Regular")) +
-  geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
-            position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
+ # ggplot(combined_data, aes(x = `Difference`, y = `Industry`, fill = Group)) +
+ #   geom_bar(stat = "identity", position = position_dodge()) +
+ #   scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
+ #   labs(title = "Figure 1", 
+ #        subtitle = "Comparison of % Differences in Industry with and without MC", 
+ #        x = "Difference", y = "Industry", fill = "Group",
+ #        caption = "Source: Linkedin Insights Data" ) +
+ #   dais.base.theme() +
+ #   theme(panel.background=element_blank(), 
+ #         axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, family = "Replica-Regular")) +
+ #   geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
+ #             position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
+
+
+
+combined_data[, Difference := Difference * 100]
+
+plot.column.dais(data = combined_data,
+                 x = Difference,
+                 cat = Industry,
+                 group.by = Group,
+                 plot.title = "Comparison of largest differences in Industries between with and without MCs",
+                 plot.fig.num = "Figure 2",
+                 order.bar = "No",
+                 column.width = 0.6,
+                 colours = c("#eb0072", "#6bbfae"),
+                 label = TRUE,
+                 label.unit = "%",
+                 language = "EN",
+                 y.axis = "Industry",
+                 legend.title = "Group",
+                 caption = "Source: Linkedin Insights Data",
+                 logo = FALSE,
+                 export = FALSE)+coord_flip() +
+  scale_y_continuous(labels = function(x) paste0(round(x, 1), "%")) 
+
 
 ggsave("Figure_2.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
@@ -619,18 +641,42 @@ combined_data_with_seniority <- combined_data_with_seniority %>%
 
 
 # Graph with bars on the right and left
-ggplot(combined_data_with_seniority, aes(x = `Difference`, y = `Title_and_Seniority`, fill = Group)) +
-  geom_bar(stat = "identity", position = position_dodge()) +
-  scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
-  labs(title = "Figure 1", 
-       subtitle = "Comparison of % Differences in Common Titles with and without MC", 
-       x = "Difference", y = "Job Titles and Seniority Levels", fill = "Group",
-       caption = "Source: Linkedin Insights Data" ) +
-  dais.base.theme() +
-  theme(panel.background=element_blank(), 
-        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, family = "Replica-Regular")) +
-  geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
-            position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
+# ggplot(combined_data_with_seniority, aes(x = `Difference`, y = `Title_and_Seniority`, fill = Group)) +
+#   geom_bar(stat = "identity", position = position_dodge()) +
+#   scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
+#   labs(title = "Figure 1", 
+#        subtitle = "Comparison of % Differences in Common Titles with and without MC", 
+#        x = "Difference", y = "Job Titles and Seniority Levels", fill = "Group",
+#        caption = "Source: Linkedin Insights Data" ) +
+#   dais.base.theme() +
+#   theme(panel.background=element_blank(), 
+#         axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, family = "Replica-Regular")) +
+#   geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
+#             position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
+
+
+combined_data_with_seniority[, Difference := Difference * 100]
+
+plot.column.dais(data = combined_data_with_seniority,
+                 x = Difference,
+                 cat = Title_and_Seniority,
+                 group.by = Group,
+                 plot.title = "Comparison of largest differences in Job Titles between with and without MCs",
+                 plot.fig.num = "Figure 3",
+                 order.bar = "No",
+                 column.width = 0.6,
+                 colours = c("#eb0072", "#6bbfae"),
+                 label = TRUE,
+                 label.unit = "%",
+                 language = "EN",
+                 y.axis = "Job Titles",
+                 legend.title = "Group",
+                 caption = "Source: Linkedin Insights Data",
+                 logo = FALSE,
+                 export = FALSE)+coord_flip() +
+        scale_y_continuous(labels = function(x) paste0(round(x, 0), "%")) +
+        xlab("Job Titles")
+
 
 
 ggsave("Figure_3.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
@@ -640,15 +686,15 @@ ggsave("Figure_3.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = 
 
 # Common Titles treemap
 
-treemap(data,
-        index = c("Group", "Common Title"),
-        vSize = "NormalizedProfessionals",
-        title = "Comparison of Common Titles",
-        palette = dais_palette,
-        #fontfamily.title = "Rooneysans",
-        #fontfamily.labels = "Rooneysans",
-        #fontfamily.legend = "Rooneysans",
-        fontsize.labels = 12)
+# treemap(data,
+#         index = c("Group", "Common Title"),
+#         vSize = "NormalizedProfessionals",
+#         title = "Comparison of Common Titles",
+#         palette = dais_palette,
+#         #fontfamily.title = "Rooneysans",
+#         #fontfamily.labels = "Rooneysans",
+#         #fontfamily.legend = "Rooneysans",
+#         fontsize.labels = 12)
 
 ######################################################################
 
@@ -710,13 +756,13 @@ filtered_data_withoutmc <- data[`Field of Study` %in% top_10_diff_withoutmc$`Fie
 #   theme(axis.text.x = element_text(angle = 90, hjust = 0.5)) +
 #   scale_fill_manual(values = c("#eb0072", "#6bbfae"))
 # 
- ggplot(filtered_data_mc, aes(x = `Field of Study`, y = NormalizedProfessionals, fill = Group)) +
-   geom_bar(stat = "identity", position = "dodge") +
-   labs(x = "Field of Study", y = "Normalized Number of Professionals", title = "Comparison of Professionals with and without MC for top 10 skill differences") +
-   dais.base.theme() +
-   theme(panel.background=element_blank()) +
-   theme(axis.text.x = element_text(angle = 90, hjust = 0.5)) +
-   scale_fill_manual(values = c("#eb0072", "#6bbfae"))
+ # ggplot(filtered_data_mc, aes(x = `Field of Study`, y = NormalizedProfessionals, fill = Group)) +
+ #   geom_bar(stat = "identity", position = "dodge") +
+ #   labs(x = "Field of Study", y = "Normalized Number of Professionals", title = "Comparison of Professionals with and without MC for top 10 skill differences") +
+ #   dais.base.theme() +
+ #   theme(panel.background=element_blank()) +
+ #   theme(axis.text.x = element_text(angle = 90, hjust = 0.5)) +
+ #   scale_fill_manual(values = c("#eb0072", "#6bbfae"))
 
 # ggplot(filtered_data_withoutmc, aes(x = `Field of Study`, y = NormalizedProfessionals, fill = Group)) +
 #   geom_bar(stat = "identity", position = "dodge") +
@@ -745,18 +791,43 @@ combined_data_with_broad_field <- combined_data_with_broad_field %>%
   mutate(Study_Field_and_Broad = paste(`Field of Study`, "\n(", `Broad Field of Study`, ")", sep = ""))
 
 # Graph with bars on the right and left
-ggplot(combined_data_with_broad_field, aes(x = `Difference`, y = `Study_Field_and_Broad`, fill = Group)) +
-  geom_bar(stat = "identity", position = position_dodge()) +
-  scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
-  labs(title = "Figure 1", 
-       subtitle = "Comparison of % Differences in Fields of Study with and without MC", 
-       x = "Difference", y = "Field of Study", fill = "Group",
-       caption = "Source: Linkedin Insights Data" ) +
-  dais.base.theme() +
-  theme(panel.background=element_blank(), 
-        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, family = "Replica-Regular")) +
-  geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
-            position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
+# ggplot(combined_data_with_broad_field, aes(x = `Difference`, y = `Study_Field_and_Broad`, fill = Group)) +
+#   geom_bar(stat = "identity", position = position_dodge()) +
+#   scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
+#   labs(title = "Figure 1", 
+#        subtitle = "Comparison of % Differences in Fields of Study with and without MC", 
+#        x = "Difference", y = "Field of Study", fill = "Group",
+#        caption = "Source: Linkedin Insights Data" ) +
+#   dais.base.theme() +
+#   theme(panel.background=element_blank(), 
+#         axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, family = "Replica-Regular")) +
+#   geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
+#             position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
+
+
+
+combined_data_with_broad_field[, Difference := Difference * 100]
+
+plot.column.dais(data = combined_data_with_broad_field,
+                 x = Difference,
+                 cat = Study_Field_and_Broad,
+                 group.by = Group,
+                 plot.title = "Comparison of largest differences in Fields of Study between with and without MCs",
+                 plot.fig.num = "Figure 4",
+                 order.bar = "No",
+                 column.width = 0.6,
+                 colours = c("#eb0072", "#6bbfae"),
+                 label = TRUE,
+                 label.unit = "%",
+                 language = "EN",
+                 y.axis = "Field of Study",
+                 legend.title = "Group",
+                 caption = "Source: Linkedin Insights Data",
+                 logo = FALSE,
+                 export = FALSE)+coord_flip() +
+      scale_y_continuous(labels = function(x) paste0(round(x, 0), "%"))+
+     xlab("Field of Study")
+
 
 ggsave("Figure_4.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
@@ -764,15 +835,15 @@ ggsave("Figure_4.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = 
 
 # Field of Study treemap
 
-treemap(data,
-        index = c("Group", "Field of Study"),
-        vSize = "NormalizedProfessionals",
-        title = "Comparison of Fields of Study",
-        palette = dais_palette,
-        #fontfamily.title = "Rooneysans",
-        #fontfamily.labels = "Rooneysans",
-        #fontfamily.legend = "Rooneysans",
-        fontsize.labels = 12)
+# treemap(data,
+#         index = c("Group", "Field of Study"),
+#         vSize = "NormalizedProfessionals",
+#         title = "Comparison of Fields of Study",
+#         palette = dais_palette,
+#         #fontfamily.title = "Rooneysans",
+#         #fontfamily.labels = "Rooneysans",
+#         #fontfamily.legend = "Rooneysans",
+#         fontsize.labels = 12)
 
 
 ######################################################################
@@ -894,18 +965,41 @@ combined_data <- rbind(transform(top_5_diff_mc, Group = "With MC"),
 
 
 # Graph with bars on the right and left
-ggplot(combined_data, aes(x = `Difference`, y = `Common Skill`, fill = Group)) +
-  geom_bar(stat = "identity", position = position_dodge()) +
-  scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
-  labs(title = "Figure 1", 
-       subtitle = "Comparison of % Differences in Skills with and without MC", 
-       x = "Difference", y = "Common Skill", fill = "Group",
-       caption = "Source: Linkedin Insights Data" ) +
-  dais.base.theme() +
-  theme(panel.background=element_blank(), 
-        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, family = "Replica-Regular")) +
-  geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
-            position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
+# ggplot(combined_data, aes(x = `Difference`, y = `Common Skill`, fill = Group)) +
+#   geom_bar(stat = "identity", position = position_dodge()) +
+#   scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
+#   labs(title = "Figure 1", 
+#        subtitle = "Comparison of % Differences in Skills with and without MC", 
+#        x = "Difference", y = "Common Skill", fill = "Group",
+#        caption = "Source: Linkedin Insights Data" ) +
+#   dais.base.theme() +
+#   theme(panel.background=element_blank(), 
+#         axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, family = "Replica-Regular")) +
+#   geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
+#             position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
+
+
+combined_data[, Difference := Difference * 100]
+
+plot.column.dais(data = combined_data,
+                 x = Difference,
+                 cat = `Common Skill`,
+                 group.by = Group,
+                 plot.title = "Comparison of largest differences in skills between with and without MCs",
+                 plot.fig.num = "Figure 5",
+                 order.bar = "No",
+                 column.width = 0.6,
+                 colours = c("#eb0072", "#6bbfae"),
+                 label = TRUE,
+                 label.unit = "%",
+                 language = "EN",
+                 y.axis = "Common Skill",
+                 legend.title = "Group",
+                 caption = "Source: Linkedin Insights Data",
+                 logo = FALSE,
+                 export = FALSE)+coord_flip() +
+  scale_y_continuous(labels = function(x) paste0(round(x, 1), "%")) 
+
 
 ggsave("Figure_5.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
@@ -917,15 +1011,15 @@ dais_palette <- c("#DDA5C0", "#6bbfae" , "#ffa300",  "#002d72", "#eb0072" ,"#5bc
 
 
 # Common Skills treemap
-treemap(data,
-        index = c("Group", "Common Skill"),
-        vSize = "NormalizedProfessionals",
-        title = "Comparison of Common Skills",
-        palette = dais_palette,
-        #fontfamily.title = "Rooneysans",
-        #fontfamily.labels = "Rooneysans",
-        #fontfamily.legend = "Rooneysans",
-        fontsize.labels = 12)
+# treemap(data,
+#         index = c("Group", "Common Skill"),
+#         vSize = "NormalizedProfessionals",
+#         title = "Comparison of Common Skills",
+#         palette = dais_palette,
+#         #fontfamily.title = "Rooneysans",
+#         #fontfamily.labels = "Rooneysans",
+#         #fontfamily.legend = "Rooneysans",
+#         fontsize.labels = 12)
 
 ######################################################################
 
@@ -1013,18 +1107,41 @@ combined_data <- rbind(transform(top_5_diff_mc, Group = "With MC"),
 
 
 # Graph with bars on the right and left
-ggplot(combined_data, aes(x = `Difference`, y = `Industry`, fill = Group)) +
-  geom_bar(stat = "identity", position = position_dodge()) +
-  scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
-  labs(title = "Figure 1", 
-       subtitle = "Comparison of % Differences in Industry with and without MC", 
-       x = "Difference", y = "Industry", fill = "Group",
-       caption = "Source: Linkedin Insights Data" ) +
-  dais.base.theme() +
-  theme(panel.background=element_blank(), 
-        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, family = "Replica-Regular")) +
-  geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
-            position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
+# ggplot(combined_data, aes(x = `Difference`, y = `Industry`, fill = Group)) +
+#   geom_bar(stat = "identity", position = position_dodge()) +
+#   scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
+#   labs(title = "Figure 1", 
+#        subtitle = "Comparison of % Differences in Industry with and without MC", 
+#        x = "Difference", y = "Industry", fill = "Group",
+#        caption = "Source: Linkedin Insights Data" ) +
+#   dais.base.theme() +
+#   theme(panel.background=element_blank(), 
+#         axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, family = "Replica-Regular")) +
+#   geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
+#             position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
+
+
+combined_data[, Difference := Difference * 100]
+
+plot.column.dais(data = combined_data,
+                 x = Difference,
+                 cat = Industry,
+                 group.by = Group,
+                 plot.title = "Comparison of largest differences in Industries between with and without MCs",
+                 plot.fig.num = "Figure 6",
+                 order.bar = "No",
+                 column.width = 0.6,
+                 colours = c("#eb0072", "#6bbfae"),
+                 label = TRUE,
+                 label.unit = "%",
+                 language = "EN",
+                 y.axis = "Industry",
+                 legend.title = "Group",
+                 caption = "Source: Linkedin Insights Data",
+                 logo = FALSE,
+                 export = FALSE)+coord_flip() +
+  scale_y_continuous(labels = function(x) paste0(round(x, 1), "%")) 
+
 
 ggsave("Figure_6.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
@@ -1033,15 +1150,15 @@ ggsave("Figure_6.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = 
 
 # Industries treemap
 
-treemap(data,
-        index = c("Group", "Industry"),
-        vSize = "NormalizedProfessionals",
-        title = "Comparison of Industries",
-        palette = dais_palette,
-        #fontfamily.title = "Rooneysans",
-        #fontfamily.labels = "Rooneysans",
-        #fontfamily.legend = "Rooneysans",
-        fontsize.labels = 12)
+# treemap(data,
+#         index = c("Group", "Industry"),
+#         vSize = "NormalizedProfessionals",
+#         title = "Comparison of Industries",
+#         palette = dais_palette,
+#         #fontfamily.title = "Rooneysans",
+#         #fontfamily.labels = "Rooneysans",
+#         #fontfamily.legend = "Rooneysans",
+#         fontsize.labels = 12)
 
 ######################################################################
 
@@ -1141,18 +1258,41 @@ combined_data_with_seniority <- combined_data_with_seniority %>%
 
 
 # Graph with bars on the right and left
-ggplot(combined_data_with_seniority, aes(x = `Difference`, y = `Title_and_Seniority`, fill = Group)) +
-  geom_bar(stat = "identity", position = position_dodge()) +
-  scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
-  labs(title = "Figure 1", 
-       subtitle = "Comparison of % Differences in Common Titles with and without MC", 
-       x = "Difference", y = "Job Titles and Seniority Levels", fill = "Group",
-       caption = "Source: Linkedin Insights Data" ) +
-  dais.base.theme() +
-  theme(panel.background=element_blank(), 
-        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, family = "Replica-Regular")) +
-  geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
-            position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
+# ggplot(combined_data_with_seniority, aes(x = `Difference`, y = `Title_and_Seniority`, fill = Group)) +
+#   geom_bar(stat = "identity", position = position_dodge()) +
+#   scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
+#   labs(title = "Figure 1", 
+#        subtitle = "Comparison of % Differences in Common Titles with and without MC", 
+#        x = "Difference", y = "Job Titles and Seniority Levels", fill = "Group",
+#        caption = "Source: Linkedin Insights Data" ) +
+#   dais.base.theme() +
+#   theme(panel.background=element_blank(), 
+#         axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, family = "Replica-Regular")) +
+#   geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
+#             position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
+
+
+combined_data_with_seniority[, Difference := Difference * 100]
+
+plot.column.dais(data = combined_data_with_seniority,
+                 x = Difference,
+                 cat = Title_and_Seniority,
+                 group.by = Group,
+                 plot.title = "Comparison of largest differences in Job Titles between with and without MCs",
+                 plot.fig.num = "Figure 7",
+                 order.bar = "No",
+                 column.width = 0.6,
+                 colours = c("#eb0072", "#6bbfae"),
+                 label = TRUE,
+                 label.unit = "%",
+                 language = "EN",
+                 y.axis = "Job Titles",
+                 legend.title = "Group",
+                 caption = "Source: Linkedin Insights Data",
+                 logo = FALSE,
+                 export = FALSE)+coord_flip() +
+  scale_y_continuous(labels = function(x) paste0(round(x, 0), "%")) +
+  xlab("Job Titles")
 
 
 ggsave("Figure_7.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
@@ -1161,15 +1301,15 @@ ggsave("Figure_7.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = 
 
 # Common Titles treemap
 
-treemap(data,
-        index = c("Group", "Common Title"),
-        vSize = "NormalizedProfessionals",
-        title = "Comparison of Common Titles",
-        palette = dais_palette,
-        #fontfamily.title = "Rooneysans",
-        #fontfamily.labels = "Rooneysans",
-        #fontfamily.legend = "Rooneysans",
-        fontsize.labels = 12)
+# treemap(data,
+#         index = c("Group", "Common Title"),
+#         vSize = "NormalizedProfessionals",
+#         title = "Comparison of Common Titles",
+#         palette = dais_palette,
+#         #fontfamily.title = "Rooneysans",
+#         #fontfamily.labels = "Rooneysans",
+#         #fontfamily.legend = "Rooneysans",
+#         fontsize.labels = 12)
 
 ######################################################################
 
@@ -1231,21 +1371,21 @@ filtered_data_withoutmc <- data[`Field of Study` %in% top_10_diff_withoutmc$`Fie
 #   theme(axis.text.x = element_text(angle = 90, hjust = 0.5)) +
 #   scale_fill_manual(values = c("#eb0072", "#6bbfae"))
 # 
- ggplot(filtered_data_mc, aes(x = `Field of Study`, y = NormalizedProfessionals, fill = Group)) +
-   geom_bar(stat = "identity", position = "dodge") +
-   labs(x = "Field of Study", y = "Normalized Number of Professionals", title = "Comparison of Professionals with and without MC for top 10 skill differences") +
-   dais.base.theme() +
-   theme(panel.background=element_blank()) +
-   theme(axis.text.x = element_text(angle = 90, hjust = 0.5)) +
-   scale_fill_manual(values = c("#eb0072", "#6bbfae"))
-  
- ggplot(filtered_data_withoutmc, aes(x = `Field of Study`, y = NormalizedProfessionals, fill = Group)) +
-   geom_bar(stat = "identity", position = "dodge") +
-   labs(x = "Common Skill", y = "Normalized Number of Professionals", title = "Comparison of Professionals with and without MC for top 10 skill differences") +
-   dais.base.theme() +
-   theme(panel.background=element_blank()) +
-   theme(axis.text.x = element_text(angle = 90, hjust = 0.5)) +
-   scale_fill_manual(values = c("#eb0072", "#6bbfae"))
+ # ggplot(filtered_data_mc, aes(x = `Field of Study`, y = NormalizedProfessionals, fill = Group)) +
+ #   geom_bar(stat = "identity", position = "dodge") +
+ #   labs(x = "Field of Study", y = "Normalized Number of Professionals", title = "Comparison of Professionals with and without MC for top 10 skill differences") +
+ #   dais.base.theme() +
+ #   theme(panel.background=element_blank()) +
+ #   theme(axis.text.x = element_text(angle = 90, hjust = 0.5)) +
+ #   scale_fill_manual(values = c("#eb0072", "#6bbfae"))
+ #  
+ # ggplot(filtered_data_withoutmc, aes(x = `Field of Study`, y = NormalizedProfessionals, fill = Group)) +
+ #   geom_bar(stat = "identity", position = "dodge") +
+ #   labs(x = "Common Skill", y = "Normalized Number of Professionals", title = "Comparison of Professionals with and without MC for top 10 skill differences") +
+ #   dais.base.theme() +
+ #   theme(panel.background=element_blank()) +
+ #   theme(axis.text.x = element_text(angle = 90, hjust = 0.5)) +
+ #   scale_fill_manual(values = c("#eb0072", "#6bbfae"))
 
 
 #Top 5s
@@ -1267,19 +1407,41 @@ combined_data_with_broad_field <- combined_data_with_broad_field %>%
   mutate(Study_Field_and_Broad = paste(`Field of Study`, "\n(", `Broad Field of Study`, ")", sep = ""))
 
 # Graph with bars on the right and left
-ggplot(combined_data_with_broad_field, aes(x = `Difference`, y = `Study_Field_and_Broad`, fill = Group)) +
-  geom_bar(stat = "identity", position = position_dodge()) +
-  scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
-  labs(title = "Figure 1", 
-       subtitle = "Comparison of % Differences in Fields of Study with and without MC", 
-       x = "Difference", y = "Field of Study", fill = "Group",
-       caption = "Source: Linkedin Insights Data" ) +
-  dais.base.theme() +
-  theme(panel.background=element_blank(), 
-        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, family = "Replica-Regular")) +
-  geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
-            position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
+# ggplot(combined_data_with_broad_field, aes(x = `Difference`, y = `Study_Field_and_Broad`, fill = Group)) +
+#   geom_bar(stat = "identity", position = position_dodge()) +
+#   scale_fill_manual(values = c("With MC" = "#eb0072", "Without MC" = "#6bbfae")) +
+#   labs(title = "Figure 1", 
+#        subtitle = "Comparison of % Differences in Fields of Study with and without MC", 
+#        x = "Difference", y = "Field of Study", fill = "Group",
+#        caption = "Source: Linkedin Insights Data" ) +
+#   dais.base.theme() +
+#   theme(panel.background=element_blank(), 
+#         axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, family = "Replica-Regular")) +
+#   geom_text(aes(label = percent(round(abs(`Difference`), 3))), 
+#             position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
 
+
+combined_data_with_broad_field[, Difference := Difference * 100]
+
+plot.column.dais(data = combined_data_with_broad_field,
+                 x = Difference,
+                 cat = Study_Field_and_Broad,
+                 group.by = Group,
+                 plot.title = "Comparison of largest differences in Fields of Study between with and without MCs",
+                 plot.fig.num = "Figure 8",
+                 order.bar = "No",
+                 column.width = 0.6,
+                 colours = c("#eb0072", "#6bbfae"),
+                 label = TRUE,
+                 label.unit = "%",
+                 language = "EN",
+                 y.axis = "Field of Study",
+                 legend.title = "Group",
+                 caption = "Source: Linkedin Insights Data",
+                 logo = FALSE,
+                 export = FALSE)+coord_flip() +
+  scale_y_continuous(labels = function(x) paste0(round(x, 0), "%"))+
+  xlab("Field of Study")
 
 ggsave("Figure_8.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
@@ -1287,14 +1449,14 @@ ggsave("Figure_8.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = 
 
 
 # Field of Study treemap
-
-treemap(data,
-        index = c("Group", "Field of Study"),
-        vSize = "NormalizedProfessionals",
-        title = "Comparison of Fields of Study",
-        palette = dais_palette,
-        #fontfamily.title = "Rooneysans",
-        #fontfamily.labels = "Rooneysans",
-        #fontfamily.legend = "Rooneysans",
-        fontsize.labels = 12)
+# 
+# treemap(data,
+#         index = c("Group", "Field of Study"),
+#         vSize = "NormalizedProfessionals",
+#         title = "Comparison of Fields of Study",
+#         palette = dais_palette,
+#         #fontfamily.title = "Rooneysans",
+#         #fontfamily.labels = "Rooneysans",
+#         #fontfamily.legend = "Rooneysans",
+#         fontsize.labels = 12)
 
