@@ -33,6 +33,10 @@ seniority <- as.data.table(read_excel("Title Seniority.xlsx"))
 
 seniority2 <- as.data.table(read_excel("Title Seniority.xlsx", sheet = 2))
 
+ict <- as.data.table(read_excel("ICT Sectors.xlsx"))
+
+ict2 <- as.data.table(read_excel("Title Seniority.xlsx", sheet = 2))
+
 
 #################################
 #IMPORT FIRST EXCEL FILE 
@@ -850,13 +854,8 @@ ggsave("Figure_4.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = 
 ##############################################################
 ###########################################################
 
-##### Regressions #####
 
-
-
-
-
-
+# NEXT NOC ####
 
 
 ################################################
@@ -1459,4 +1458,283 @@ ggsave("Figure_8.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = 
 #         #fontfamily.labels = "Rooneysans",
 #         #fontfamily.legend = "Rooneysans",
 #         fontsize.labels = 12)
+
+
+
+######################################################################
+##############################################################
+###########################################################
+
+
+# Within Group Comparisons ####
+
+
+################################################
+###################################################
+#########################################################
+##############################################################
+######################################################################
+############################################
+######################################
+################################
+#########################
+#######
+
+
+# Stacked bars for 
+# 1.stem vs non-stem 
+# 2. Seniority 
+# 3. Ict vs non-ict
+
+
+
+
+######## 1.stem vs non-stem 
+
+##### Data Scientists
+
+data <- rbind(
+  data_scientists_withoutmc_fields_of_study[, .(Group = "Without MC", `Field of Study`, Professionals)],
+  `data_scientist_mc_Fields of Study`[, .(Group = "With MC", `Field of Study` = Fields.of.study, Professionals)]
+)
+
+# Convert Professionals to percentages among the same attribute
+data[, NormalizedProfessionals := Professionals / sum(Professionals), by = Group]
+
+
+
+#Add STEM VS BHASE 
+combined_data_with_broad_field <- merge(data, stemvsbhase,
+                                        by.x = "Field of Study", 
+                                        by.y = "Fields of study",all.x = TRUE)
+
+combined_data_with_broad_field <- combined_data_with_broad_field %>%
+  mutate(Study_Field_and_Broad = paste(`Field of Study`, "\n(", `Broad Field of Study`, ")", sep = ""))
+
+combined_data_with_broad_field <- na.omit(combined_data_with_broad_field)
+
+grouped_data <- combined_data_with_broad_field[, .(NormalizedProfessionals = sum(NormalizedProfessionals, na.rm = TRUE)), by = .(`Broad Field of Study`, Group)]
+
+
+plot.column.dais(
+  data = grouped_data,
+  x = NormalizedProfessionals,
+  cat = Group,
+  group.by = `Broad Field of Study`,
+  plot.title = "Normalized Professionals in STEM and BHASE",
+  plot.fig.num = "Figure 9",
+  order.bar = "No",
+  column.width = 0.6,
+  colours = c("#eb0072", "#6bbfae"),
+  label = TRUE,
+  y.axis = "Normalized Professionals",
+  legend.title = "Broad Field of Study",
+  caption = "Source: LinkedIn Data",
+  logo = FALSE,
+  export = FALSE,
+  stacked = TRUE
+)
+
+ggsave("Figure_9.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+
+
+##### Software Engineers
+
+# create a new datatable that combines the data from both datatables
+data <- rbind(
+  software_withoutmc_fields_of_study[, .(Group = "Without MC", `Field of Study`, Professionals)],
+  `software_mc_Fields of Study`[, .(Group = "With MC", `Field of Study` = Fields.of.study, Professionals)]
+)
+
+
+# Convert Professionals to percentages among the same attribute
+data[, NormalizedProfessionals := Professionals / sum(Professionals), by = Group]
+
+
+
+#Add STEM VS BHASE 
+combined_data_with_broad_field <- merge(data, stemvsbhase,
+                                        by.x = "Field of Study", 
+                                        by.y = "Fields of study",all.x = TRUE)
+
+combined_data_with_broad_field <- combined_data_with_broad_field %>%
+  mutate(Study_Field_and_Broad = paste(`Field of Study`, "\n(", `Broad Field of Study`, ")", sep = ""))
+
+combined_data_with_broad_field <- na.omit(combined_data_with_broad_field)
+
+grouped_data <- combined_data_with_broad_field[, .(NormalizedProfessionals = sum(NormalizedProfessionals, na.rm = TRUE)), by = .(`Broad Field of Study`, Group)]
+
+
+plot.column.dais(
+  data = grouped_data,
+  x = NormalizedProfessionals,
+  cat = Group,
+  group.by = `Broad Field of Study`,
+  plot.title = "Normalized Professionals in STEM and BHASE",
+  plot.fig.num = "Figure 10",
+  order.bar = "No",
+  column.width = 0.6,
+  colours = c("#eb0072", "#6bbfae"),
+  label = TRUE,
+  y.axis = "Normalized Professionals",
+  legend.title = "Broad Field of Study",
+  caption = "Source: LinkedIn Data",
+  logo = FALSE,
+  export = FALSE,
+  stacked = TRUE
+)
+
+ggsave("Figure_10.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+
+
+
+######################################################################
+
+######## 2. Seniority 
+
+#### Data Scientists
+
+# create a new datatable that combines the data from both datatables
+data <- rbind(
+  data_scientists_withoutmc_common_titles[, .(Group = "Without MC", `Common Title`, Professionals)],
+  `data_scientist_mc_Common Titles`[, .(Group = "With MC", `Common Title` = Titles, Professionals)]
+)
+
+# Convert Professionals to percentages among the same attribute
+data[, NormalizedProfessionals := Professionals / sum(Professionals), by = Group]
+
+
+
+#Add STEM VS BHASE 
+combined_data_with_seniority <- merge(data, seniority,
+                                        by.x = "Common Title", 
+                                        by.y = "Titles",all.x = TRUE)
+
+combined_data_with_seniority <- combined_data_with_seniority %>%
+  mutate(Title_and_Seniority = paste(`Common Title`, "\n(", `Seniority`, ")", sep = ""))
+
+
+
+grouped_data <- combined_data_with_seniority[, .(NormalizedProfessionals = sum(NormalizedProfessionals, na.rm = TRUE)), by = .(Seniority, Group)]
+
+
+plot.column.dais(
+  data = grouped_data,
+  x = NormalizedProfessionals,
+  cat = Group,
+  group.by = Seniority,
+  plot.title = "Normalized Professionals in STEM and BHASE",
+  plot.fig.num = "Figure 11",
+  order.bar = "No",
+  column.width = 0.6,
+  colours = c("#eb0072", "#6bbfae","#5bc2f4"),
+  label = TRUE,
+  y.axis = "Normalized Professionals",
+  legend.title = "Broad Field of Study",
+  caption = "Source: LinkedIn Data",
+  logo = FALSE,
+  export = FALSE,
+  stacked = TRUE
+)
+
+ggsave("Figure_11.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+
+
+#### Software Engineers
+
+# create a new datatable that combines the data from both datatables
+data <- rbind(
+  software_withoutmc_common_titles[, .(Group = "Without MC", `Common Title`, Professionals)],
+  `software_mc_Common Titles`[, .(Group = "With MC", `Common Title` = Titles, Professionals)]
+)
+
+# Convert Professionals to percentages among the same attribute
+data[, NormalizedProfessionals := Professionals / sum(Professionals), by = Group]
+
+
+
+#Add STEM VS BHASE 
+combined_data_with_seniority <- merge(data, seniority2,
+                                      by.x = "Common Title", 
+                                      by.y = "Titles",all.x = TRUE)
+
+combined_data_with_seniority <- combined_data_with_seniority %>%
+  mutate(Title_and_Seniority = paste(`Common Title`, "\n(", `Seniority`, ")", sep = ""))
+
+
+
+grouped_data <- combined_data_with_seniority[, .(NormalizedProfessionals = sum(NormalizedProfessionals, na.rm = TRUE)), by = .(Seniority, Group)]
+
+
+plot.column.dais(
+  data = grouped_data,
+  x = NormalizedProfessionals,
+  cat = Group,
+  group.by = Seniority,
+  plot.title = "Normalized Professionals in STEM and BHASE",
+  plot.fig.num = "Figure 12",
+  order.bar = "No",
+  column.width = 0.6,
+  colours = c("#eb0072", "#6bbfae","#5bc2f4"),
+  label = TRUE,
+  y.axis = "Normalized Professionals",
+  legend.title = "Broad Field of Study",
+  caption = "Source: LinkedIn Data",
+  logo = FALSE,
+  export = FALSE,
+  stacked = TRUE
+)
+
+ggsave("Figure_12.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+
+
+######################################################################
+
+######## 3. Ict vs non-ict
+
+#### Data Scientists
+
+# create a new datatable that combines the data from both datatables
+data <- rbind(
+  data_scientists_withoutmc_industries[, .(Group = "Without MC", Industry, Professionals)],
+  data_scientist_mc_Industries[, .(Group = "With MC", Industry, Professionals)]
+)
+
+# Convert Professionals to percentages among the same attribute
+data[, NormalizedProfessionals := Professionals / sum(Professionals), by = Group]
+
+
+
+#Add STEM VS BHASE 
+combined_data_with_ict <- merge(data, ict,
+                                      by.x = "Industry", 
+                                      by.y = "Industry",all.x = TRUE)
+
+
+grouped_data <- combined_data_with_ict[, .(NormalizedProfessionals = sum(NormalizedProfessionals, na.rm = TRUE)), by = .(ICT, Group)]
+
+
+plot.column.dais(
+  data = grouped_data,
+  x = NormalizedProfessionals,
+  cat = Group,
+  group.by = Seniority,
+  plot.title = "Normalized Professionals in STEM and BHASE",
+  plot.fig.num = "Figure 13",
+  order.bar = "No",
+  column.width = 0.6,
+  colours = c("#eb0072", "#6bbfae","#5bc2f4"),
+  label = TRUE,
+  y.axis = "Normalized Professionals",
+  legend.title = "Broad Field of Study",
+  caption = "Source: LinkedIn Data",
+  logo = FALSE,
+  export = FALSE,
+  stacked = TRUE
+)
+
+ggsave("Figure_13.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+
+
+
 
