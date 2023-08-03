@@ -35,7 +35,7 @@ seniority2 <- as.data.table(read_excel("Title Seniority.xlsx", sheet = 2))
 
 ict <- as.data.table(read_excel("ICT Sectors.xlsx"))
 
-ict2 <- as.data.table(read_excel("Title Seniority.xlsx", sheet = 2))
+ict2 <- as.data.table(read_excel("ICT Sectors.xlsx", sheet = 2))
 
 
 #################################
@@ -368,7 +368,7 @@ combined_data[, Difference := Difference * 100]
                   x = Difference,
                   cat = `Common Skill`,
                   group.by = Group,
-                  plot.title = "Comparison of largest differences in skills between with and without MCs",
+                  plot.title = "DS - Comparison of largest differences in skills between with and without MCs",
                   plot.fig.num = "Figure 1",
                   order.bar = "No",
                   column.width = 0.6,
@@ -386,6 +386,7 @@ combined_data[, Difference := Difference * 100]
 ggsave("Figure_1.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
 
+write.csv(combined_data, "Figure_1.csv", row.names = FALSE)
 
 #write.xlsx(combined_data, "topskills_datascientists.xlsx", rowNames = FALSE)
 
@@ -513,7 +514,7 @@ plot.column.dais(data = combined_data,
                  x = Difference,
                  cat = Industry,
                  group.by = Group,
-                 plot.title = "Comparison of largest differences in Industries between with and without MCs",
+                 plot.title = "DS - Comparison of largest differences in Industries between with and without MCs",
                  plot.fig.num = "Figure 2",
                  order.bar = "No",
                  column.width = 0.6,
@@ -531,6 +532,7 @@ plot.column.dais(data = combined_data,
 
 ggsave("Figure_2.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
+write.csv(combined_data, "Figure_2.csv", row.names = FALSE)
 
 
 
@@ -665,7 +667,7 @@ plot.column.dais(data = combined_data_with_seniority,
                  x = Difference,
                  cat = Title_and_Seniority,
                  group.by = Group,
-                 plot.title = "Comparison of largest differences in Job Titles between with and without MCs",
+                 plot.title = "DS - Comparison of largest differences in Job Titles between with and without MCs",
                  plot.fig.num = "Figure 3",
                  order.bar = "No",
                  column.width = 0.6,
@@ -684,6 +686,8 @@ plot.column.dais(data = combined_data_with_seniority,
 
 
 ggsave("Figure_3.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+
+write.csv(combined_data_with_seniority, "Figure_3.csv", row.names = FALSE)
 
 
 
@@ -816,7 +820,7 @@ plot.column.dais(data = combined_data_with_broad_field,
                  x = Difference,
                  cat = Study_Field_and_Broad,
                  group.by = Group,
-                 plot.title = "Comparison of largest differences in Fields of Study between with and without MCs",
+                 plot.title = "DS - Comparison of largest differences in Fields of Study between with and without MCs",
                  plot.fig.num = "Figure 4",
                  order.bar = "No",
                  column.width = 0.6,
@@ -834,6 +838,8 @@ plot.column.dais(data = combined_data_with_broad_field,
 
 
 ggsave("Figure_4.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+
+write.csv(combined_data_with_broad_field, "Figure_4.csv", row.names = FALSE)
 
 
 
@@ -984,7 +990,7 @@ plot.column.dais(data = combined_data,
                  x = Difference,
                  cat = `Common Skill`,
                  group.by = Group,
-                 plot.title = "Comparison of largest differences in skills between with and without MCs",
+                 plot.title = "SE - Comparison of largest differences in skills between with and without MCs",
                  plot.fig.num = "Figure 5",
                  order.bar = "No",
                  column.width = 0.6,
@@ -1002,6 +1008,7 @@ plot.column.dais(data = combined_data,
 
 ggsave("Figure_5.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
+write.csv(combined_data, "Figure_5.csv", row.names = FALSE)
 
 
 
@@ -1126,7 +1133,7 @@ plot.column.dais(data = combined_data,
                  x = Difference,
                  cat = Industry,
                  group.by = Group,
-                 plot.title = "Comparison of largest differences in Industries between with and without MCs",
+                 plot.title = "SE - Comparison of largest differences in Industries between with and without MCs",
                  plot.fig.num = "Figure 6",
                  order.bar = "No",
                  column.width = 0.6,
@@ -1144,6 +1151,7 @@ plot.column.dais(data = combined_data,
 
 ggsave("Figure_6.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
+write.csv(combined_data, "Figure_6.csv", row.names = FALSE)
 
 
 
@@ -1277,7 +1285,7 @@ plot.column.dais(data = combined_data_with_seniority,
                  x = Difference,
                  cat = Title_and_Seniority,
                  group.by = Group,
-                 plot.title = "Comparison of largest differences in Job Titles between with and without MCs",
+                 plot.title = "SE - Comparison of largest differences in Job Titles between with and without MCs",
                  plot.fig.num = "Figure 7",
                  order.bar = "No",
                  column.width = 0.6,
@@ -1295,6 +1303,8 @@ plot.column.dais(data = combined_data_with_seniority,
 
 
 ggsave("Figure_7.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+
+write.csv(combined_data_with_seniority, "Figure_7.csv", row.names = FALSE)
 
 
 
@@ -1426,7 +1436,7 @@ plot.column.dais(data = combined_data_with_broad_field,
                  x = Difference,
                  cat = Study_Field_and_Broad,
                  group.by = Group,
-                 plot.title = "Comparison of largest differences in Fields of Study between with and without MCs",
+                 plot.title = "SE - Comparison of largest differences in Fields of Study between with and without MCs",
                  plot.fig.num = "Figure 8",
                  order.bar = "No",
                  column.width = 0.6,
@@ -1444,6 +1454,7 @@ plot.column.dais(data = combined_data_with_broad_field,
 
 ggsave("Figure_8.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
+write.csv(combined_data_with_broad_field, "Figure_8.csv", row.names = FALSE)
 
 
 
@@ -1521,7 +1532,7 @@ plot.column.dais(
   x = NormalizedProfessionals,
   cat = Group,
   group.by = `Broad Field of Study`,
-  plot.title = "Normalized Professionals in STEM and BHASE",
+  plot.title = "DS - Normalized Professionals in STEM and BHASE",
   plot.fig.num = "Figure 9",
   order.bar = "No",
   column.width = 0.6,
@@ -1536,6 +1547,8 @@ plot.column.dais(
 )
 
 ggsave("Figure_9.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+
+write.csv(grouped_data, "Figure_9.csv", row.names = FALSE)
 
 
 ##### Software Engineers
@@ -1570,7 +1583,7 @@ plot.column.dais(
   x = NormalizedProfessionals,
   cat = Group,
   group.by = `Broad Field of Study`,
-  plot.title = "Normalized Professionals in STEM and BHASE",
+  plot.title = "SE - Normalized Professionals in STEM and BHASE",
   plot.fig.num = "Figure 10",
   order.bar = "No",
   column.width = 0.6,
@@ -1586,6 +1599,7 @@ plot.column.dais(
 
 ggsave("Figure_10.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
+write.csv(grouped_data, "Figure_10.csv", row.names = FALSE)
 
 
 ######################################################################
@@ -1623,12 +1637,12 @@ plot.column.dais(
   x = NormalizedProfessionals,
   cat = Group,
   group.by = Seniority,
-  plot.title = "Normalized Professionals in STEM and BHASE",
+  plot.title = "DS - Normalized Professionals by Seniority",
   plot.fig.num = "Figure 11",
   order.bar = "No",
   column.width = 0.6,
   colours = c("#eb0072", "#6bbfae","#5bc2f4"),
-  label = TRUE,
+  label = FALSE,
   y.axis = "Normalized Professionals",
   legend.title = "Broad Field of Study",
   caption = "Source: LinkedIn Data",
@@ -1638,6 +1652,8 @@ plot.column.dais(
 )
 
 ggsave("Figure_11.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+
+write.csv(grouped_data, "Figure_11.csv", row.names = FALSE)
 
 
 #### Software Engineers
@@ -1671,12 +1687,12 @@ plot.column.dais(
   x = NormalizedProfessionals,
   cat = Group,
   group.by = Seniority,
-  plot.title = "Normalized Professionals in STEM and BHASE",
+  plot.title = "SE - Normalized Professionals by Seniority",
   plot.fig.num = "Figure 12",
   order.bar = "No",
   column.width = 0.6,
   colours = c("#eb0072", "#6bbfae","#5bc2f4"),
-  label = TRUE,
+  label = FALSE,
   y.axis = "Normalized Professionals",
   legend.title = "Broad Field of Study",
   caption = "Source: LinkedIn Data",
@@ -1686,6 +1702,9 @@ plot.column.dais(
 )
 
 ggsave("Figure_12.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+
+write.csv(grouped_data, "Figure_12.csv", row.names = FALSE)
+
 
 
 ######################################################################
@@ -1703,30 +1722,38 @@ data <- rbind(
 # Convert Professionals to percentages among the same attribute
 data[, NormalizedProfessionals := Professionals / sum(Professionals), by = Group]
 
+#write.csv(data, file = "data.csv", row.names = FALSE)
+
+# ict <- fread("ICT Sectors_DS.csv")
+
+# ict[, Professionals := as.numeric(gsub(",", "", Professionals))]
+# ict[, Professionals := as.numeric(Professionals)]
 
 
-#Add STEM VS BHASE 
-combined_data_with_ict <- merge(data, ict,
-                                      by.x = "Industry", 
-                                      by.y = "Industry",all.x = TRUE)
+setkey(ict,Industry)
+setkey(data,Industry)
 
+combined_data_with_ict <- data[ict,on="Industry"]
+
+combined_data_with_ict <- na.omit(combined_data_with_ict)
 
 grouped_data <- combined_data_with_ict[, .(NormalizedProfessionals = sum(NormalizedProfessionals, na.rm = TRUE)), by = .(ICT, Group)]
 
+grouped_data[, ICT := ifelse(ICT == 0, "Non-ICT", "ICT")]
 
 plot.column.dais(
   data = grouped_data,
   x = NormalizedProfessionals,
   cat = Group,
-  group.by = Seniority,
-  plot.title = "Normalized Professionals in STEM and BHASE",
+  group.by = ICT,
+  plot.title = "DS - Normalized Professionals in ICT",
   plot.fig.num = "Figure 13",
   order.bar = "No",
   column.width = 0.6,
   colours = c("#eb0072", "#6bbfae","#5bc2f4"),
   label = TRUE,
   y.axis = "Normalized Professionals",
-  legend.title = "Broad Field of Study",
+  legend.title = "Industry",
   caption = "Source: LinkedIn Data",
   logo = FALSE,
   export = FALSE,
@@ -1734,6 +1761,60 @@ plot.column.dais(
 )
 
 ggsave("Figure_13.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+
+write.csv(grouped_data, "Figure_13.csv", row.names = FALSE)
+
+
+# SOFTWARE
+
+
+# create a new datatable that combines the data from both datatables
+data <- rbind(
+  software_withoutmc_industries[, .(Group = "Without MC", Industry, Professionals)],
+  software_mc_Industries[, .(Group = "With MC", Industry, Professionals)]
+)
+
+# normalize the Professionals variable within each group
+data[, NormalizedProfessionals := Professionals / sum(Professionals), by = Group]
+
+
+setkey(ict,Industry)
+setkey(data,Industry)
+
+combined_data_with_ict <- data[ict,on="Industry"]
+
+combined_data_with_ict <- na.omit(combined_data_with_ict)
+
+grouped_data <- combined_data_with_ict[, .(NormalizedProfessionals = sum(NormalizedProfessionals, na.rm = TRUE)), by = .(ICT, Group)]
+
+grouped_data[, ICT := ifelse(ICT == 0, "Non-ICT", "ICT")]
+
+plot.column.dais(
+  data = grouped_data,
+  x = NormalizedProfessionals,
+  cat = Group,
+  group.by = ICT,
+  plot.title = "SE - Normalized Professionals in ICT",
+  plot.fig.num = "Figure 14",
+  order.bar = "No",
+  column.width = 0.6,
+  colours = c("#eb0072", "#6bbfae","#5bc2f4"),
+  label = TRUE,
+  y.axis = "Normalized Professionals",
+  legend.title = "Industry",
+  caption = "Source: LinkedIn Data",
+  logo = FALSE,
+  export = FALSE,
+  stacked = TRUE
+)
+
+ggsave("Figure_14.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+
+write.csv(grouped_data, "Figure_14.csv", row.names = FALSE)
+
+
+
+
 
 
 
