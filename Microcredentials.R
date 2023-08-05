@@ -368,7 +368,7 @@ combined_data[, Difference := Difference * 100]
                   x = Difference,
                   cat = `Common Skill`,
                   group.by = Group,
-                  plot.title = "DS - Comparison of largest differences in skills between with and without MCs",
+                  plot.title = "DS - Comparison of largest differences in skills between groups",
                   plot.fig.num = "Figure 1",
                   order.bar = "No",
                   column.width = 0.6,
@@ -514,7 +514,7 @@ plot.column.dais(data = combined_data,
                  x = Difference,
                  cat = Industry,
                  group.by = Group,
-                 plot.title = "DS - Comparison of largest differences in Industries between with and without MCs",
+                 plot.title = "DS - Comparison of largest differences in Industries between groups",
                  plot.fig.num = "Figure 2",
                  order.bar = "No",
                  column.width = 0.6,
@@ -667,7 +667,7 @@ plot.column.dais(data = combined_data_with_seniority,
                  x = Difference,
                  cat = Title_and_Seniority,
                  group.by = Group,
-                 plot.title = "DS - Comparison of largest differences in Job Titles between with and without MCs",
+                 plot.title = "DS - Comparison of largest differences in Job Titles between groups",
                  plot.fig.num = "Figure 3",
                  order.bar = "No",
                  column.width = 0.6,
@@ -820,7 +820,7 @@ plot.column.dais(data = combined_data_with_broad_field,
                  x = Difference,
                  cat = Study_Field_and_Broad,
                  group.by = Group,
-                 plot.title = "DS - Comparison of largest differences in Fields of Study between with and without MCs",
+                 plot.title = "DS - Comparison of largest differences in Fields of Study between groups",
                  plot.fig.num = "Figure 4",
                  order.bar = "No",
                  column.width = 0.6,
@@ -990,7 +990,7 @@ plot.column.dais(data = combined_data,
                  x = Difference,
                  cat = `Common Skill`,
                  group.by = Group,
-                 plot.title = "SE - Comparison of largest differences in skills between with and without MCs",
+                 plot.title = "SE - Comparison of largest differences in skills between groups",
                  plot.fig.num = "Figure 5",
                  order.bar = "No",
                  column.width = 0.6,
@@ -1133,7 +1133,7 @@ plot.column.dais(data = combined_data,
                  x = Difference,
                  cat = Industry,
                  group.by = Group,
-                 plot.title = "SE - Comparison of largest differences in Industries between with and without MCs",
+                 plot.title = "SE - Comparison of largest differences in Industries between groups",
                  plot.fig.num = "Figure 6",
                  order.bar = "No",
                  column.width = 0.6,
@@ -1285,7 +1285,7 @@ plot.column.dais(data = combined_data_with_seniority,
                  x = Difference,
                  cat = Title_and_Seniority,
                  group.by = Group,
-                 plot.title = "SE - Comparison of largest differences in Job Titles between with and without MCs",
+                 plot.title = "SE - Comparison of largest differences in Job Titles between groups",
                  plot.fig.num = "Figure 7",
                  order.bar = "No",
                  column.width = 0.6,
@@ -1436,7 +1436,7 @@ plot.column.dais(data = combined_data_with_broad_field,
                  x = Difference,
                  cat = Study_Field_and_Broad,
                  group.by = Group,
-                 plot.title = "SE - Comparison of largest differences in Fields of Study between with and without MCs",
+                 plot.title = "SE - Comparison of largest differences in Fields of Study between groups",
                  plot.fig.num = "Figure 8",
                  order.bar = "No",
                  column.width = 0.6,
@@ -1656,6 +1656,22 @@ ggsave("Figure_11.pdf", plot = last_plot(), width = 7.25, height = 7.25, units =
 write.csv(grouped_data, "Figure_11.csv", row.names = FALSE)
 
 
+#####
+# Find if the difference in Entry level between groups is stat. significant
+
+group1 <- combined_data_with_seniority[Group == "Without MC" & Seniority == "Entry", NormalizedProfessionals]
+group2 <- combined_data_with_seniority[Group == "With MC" & Seniority == "Entry", NormalizedProfessionals]
+
+# t-test
+test_result <- t.test(group1, group2)
+print(test_result)
+
+# # Wilcoxon rank sum test
+# test_result <- wilcox.test(group1, group2)
+# print(test_result)
+
+
+
 #### Software Engineers
 
 # create a new datatable that combines the data from both datatables
@@ -1704,6 +1720,16 @@ plot.column.dais(
 ggsave("Figure_12.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
 write.csv(grouped_data, "Figure_12.csv", row.names = FALSE)
+
+#####
+# Find if the difference in Entry level between groups is stat. significant
+
+group1 <- combined_data_with_seniority[Group == "Without MC" & Seniority == "Entry", NormalizedProfessionals]
+group2 <- combined_data_with_seniority[Group == "With MC" & Seniority == "Entry", NormalizedProfessionals]
+
+# t-test
+test_result <- t.test(group1, group2)
+print(test_result)
 
 
 
