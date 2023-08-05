@@ -383,11 +383,11 @@ combined_data[, Difference := Difference * 100]
                   export = FALSE)+coord_flip() +
                   scale_y_continuous(labels = function(x) paste0(round(x, 1), "%")) 
 
-ggsave("Figure_1.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ ggsave("Graphs_Exports/Figure_1.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ 
 
-
-write.csv(combined_data, "Figure_1.csv", row.names = FALSE)
-
+ write.csv(combined_data, "Graphs_data/Figure_1.csv", row.names = FALSE)
+ 
 #write.xlsx(combined_data, "topskills_datascientists.xlsx", rowNames = FALSE)
 
 
@@ -530,9 +530,10 @@ plot.column.dais(data = combined_data,
   scale_y_continuous(labels = function(x) paste0(round(x, 1), "%")) 
 
 
-ggsave("Figure_2.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ggsave("Graphs_Exports/Figure_2.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-write.csv(combined_data, "Figure_2.csv", row.names = FALSE)
+
+write.csv(combined_data, "Graphs_data/Figure_2.csv", row.names = FALSE)
 
 
 
@@ -685,10 +686,9 @@ plot.column.dais(data = combined_data_with_seniority,
 
 
 
-ggsave("Figure_3.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ggsave("Graphs_Exports/Figure_3.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-write.csv(combined_data_with_seniority, "Figure_3.csv", row.names = FALSE)
-
+write.csv(combined_data_with_seniority, "Graphs_data/Figure_3.csv", row.names = FALSE)
 
 
 
@@ -837,9 +837,9 @@ plot.column.dais(data = combined_data_with_broad_field,
      xlab("Field of Study")
 
 
-ggsave("Figure_4.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ggsave("Graphs_Exports/Figure_4.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-write.csv(combined_data_with_broad_field, "Figure_4.csv", row.names = FALSE)
+write.csv(combined_data_with_broad_field, "Graphs_data/Figure_4.csv", row.names = FALSE)
 
 
 
@@ -1006,9 +1006,9 @@ plot.column.dais(data = combined_data,
   scale_y_continuous(labels = function(x) paste0(round(x, 1), "%")) 
 
 
-ggsave("Figure_5.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ggsave("Graphs_Exports/Figure_5.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-write.csv(combined_data, "Figure_5.csv", row.names = FALSE)
+write.csv(combined_data, "Graphs_data/Figure_5.csv", row.names = FALSE)
 
 
 
@@ -1149,9 +1149,9 @@ plot.column.dais(data = combined_data,
   scale_y_continuous(labels = function(x) paste0(round(x, 1), "%")) 
 
 
-ggsave("Figure_6.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ggsave("Graphs_Exports/Figure_6.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-write.csv(combined_data, "Figure_6.csv", row.names = FALSE)
+write.csv(combined_data, "Graphs_data/Figure_6.csv", row.names = FALSE)
 
 
 
@@ -1302,9 +1302,9 @@ plot.column.dais(data = combined_data_with_seniority,
   xlab("Job Titles")
 
 
-ggsave("Figure_7.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ggsave("Graphs_Exports/Figure_7.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-write.csv(combined_data_with_seniority, "Figure_7.csv", row.names = FALSE)
+write.csv(combined_data_with_seniority, "Graphs_data/Figure_7.csv", row.names = FALSE)
 
 
 
@@ -1452,9 +1452,11 @@ plot.column.dais(data = combined_data_with_broad_field,
   scale_y_continuous(labels = function(x) paste0(round(x, 0), "%"))+
   xlab("Field of Study")
 
-ggsave("Figure_8.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-write.csv(combined_data_with_broad_field, "Figure_8.csv", row.names = FALSE)
+ggsave("Graphs_Exports/Figure_8.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+
+write.csv(combined_data_with_broad_field, "Graphs_data/Figure_8.csv", row.names = FALSE)
+
 
 
 
@@ -1546,9 +1548,9 @@ plot.column.dais(
   stacked = TRUE
 )
 
-ggsave("Figure_9.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ggsave("Graphs_Exports/Figure_9.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-write.csv(grouped_data, "Figure_9.csv", row.names = FALSE)
+write.csv(grouped_data, "Graphs_data/Figure_9.csv", row.names = FALSE)
 
 
 ##### Software Engineers
@@ -1597,9 +1599,9 @@ plot.column.dais(
   stacked = TRUE
 )
 
-ggsave("Figure_10.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ggsave("Graphs_Exports/Figure_10.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-write.csv(grouped_data, "Figure_10.csv", row.names = FALSE)
+write.csv(grouped_data, "Graphs_data/Figure_10.csv", row.names = FALSE)
 
 
 ######################################################################
@@ -1651,9 +1653,9 @@ plot.column.dais(
   stacked = TRUE
 )
 
-ggsave("Figure_11.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ggsave("Graphs_Exports/Figure_11.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-write.csv(grouped_data, "Figure_11.csv", row.names = FALSE)
+write.csv(grouped_data, "Graphs_data/Figure_11.csv", row.names = FALSE)
 
 
 #####
@@ -1717,9 +1719,9 @@ plot.column.dais(
   stacked = TRUE
 )
 
-ggsave("Figure_12.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ggsave("Graphs_Exports/Figure_12.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-write.csv(grouped_data, "Figure_12.csv", row.names = FALSE)
+write.csv(grouped_data, "Graphs_data/Figure_12.csv", row.names = FALSE)
 
 #####
 # Find if the difference in Entry level between groups is stat. significant
@@ -1786,9 +1788,9 @@ plot.column.dais(
   stacked = TRUE
 )
 
-ggsave("Figure_13.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ggsave("Graphs_Exports/Figure_13.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-write.csv(grouped_data, "Figure_13.csv", row.names = FALSE)
+write.csv(grouped_data, "Graphs_data/Figure_13.csv", row.names = FALSE)
 
 
 # SOFTWARE
@@ -1834,9 +1836,9 @@ plot.column.dais(
   stacked = TRUE
 )
 
-ggsave("Figure_14.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ggsave("Graphs_Exports/Figure_14.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-write.csv(grouped_data, "Figure_14.csv", row.names = FALSE)
+write.csv(grouped_data, "Graphs_data/Figure_14.csv", row.names = FALSE)
 
 
 
