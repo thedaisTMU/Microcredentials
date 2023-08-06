@@ -1729,10 +1729,23 @@ write.csv(grouped_data, "Graphs_data/Figure_12.csv", row.names = FALSE)
 group1 <- combined_data_with_seniority[Group == "Without MC" & Seniority == "Entry", NormalizedProfessionals]
 group2 <- combined_data_with_seniority[Group == "With MC" & Seniority == "Entry", NormalizedProfessionals]
 
-# t-test
+group3 <- combined_data_with_seniority[Group == "Without MC" & Seniority == "Mid", NormalizedProfessionals]
+group4 <- combined_data_with_seniority[Group == "With MC" & Seniority == "Mid", NormalizedProfessionals]
+
+group5 <- combined_data_with_seniority[Group == "Without MC" & Seniority == "Senior", NormalizedProfessionals]
+group6 <- combined_data_with_seniority[Group == "With MC" & Seniority == "Senior", NormalizedProfessionals]
+
+# t-test for Entry Level
 test_result <- t.test(group1, group2)
 print(test_result)
 
+# t-test for Mid
+test_result <- t.test(group3, group4)
+print(test_result)
+
+# t-test for Seniors
+test_result <- t.test(group5, group6)
+print(test_result)
 
 
 ######################################################################
