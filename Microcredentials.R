@@ -246,6 +246,35 @@ software_withoutmc_fields_of_study <- data.table(`Field of Study` = merged_data$
                                                  Professionals = merged_data$Professionals_all - merged_data$Professionals_mc)
 
 
+# Degrees
+
+#Fix column names in Degrees
+names(software_all_Degrees) <- c("Degree","Percentage","New_grads","company")  
+names(software_mc_Degrees) <- c("Degree","Percentage","New_grads")  
+names(data_scientist_all_Degrees) <- c("Degree","Percentage","New_grads","company")  
+names(data_scientist_mc_Degrees) <- c("Degree","Percentage","New_grads")  
+
+#Get the number of people with different degrees from the proportions
+data_scientist_mc_Degrees[, Professionals := Percentage * sum(data_scientist_mc_Locations$Professionals)]
+data_scientist_all_Degrees[, Professionals := Percentage * sum(data_scientist_all_Locations$Professionals)]
+software_mc_Degrees[, Professionals := Percentage * sum(software_mc_Locations$Professionals)]
+software_all_Degrees[, Professionals := Percentage * sum(software_all_Locations$Professionals)]
+
+
+
+merged_data <- merge(data_scientist_all_Degrees, data_scientist_mc_Degrees, by = "Degree", suffixes = c("_all", "_mc"), all.x = TRUE)
+merged_data[is.na(Professionals_mc), Professionals_mc := 0]
+
+data_scientists_withoutmc_degrees <- data.table(Degree = merged_data$Degree,
+                                                Professionals = merged_data$Professionals_all - merged_data$Professionals_mc)
+
+merged_data <- merge(software_all_Degrees, software_mc_Degrees, by = "Degree", suffixes = c("_all", "_mc"), all.x = TRUE)
+merged_data[is.na(Professionals_mc), Professionals_mc := 0]
+
+software_withoutmc_degrees <- data.table(Degree = merged_data$Degree,
+                                         Professionals = merged_data$Professionals_all - merged_data$Professionals_mc)
+
+
 
 
 ################################################################################
@@ -1854,9 +1883,80 @@ ggsave("Graphs_Exports/Figure_14.pdf", plot = last_plot(), width = 7.25, height 
 write.csv(grouped_data, "Graphs_data/Figure_14.csv", row.names = FALSE)
 
 
+######################################################################
+
+######## 4. Degrees
+
+# Data Scientists
+
+# create a new datatable that combines the data from both datatables
+data <- rbind(
+  data_scientists_withoutmc_degrees[, .(Group = "Without MC", Degree, Professionals)],
+  data_scientist_mc_Degrees[, .(Group = "With MC", Degree, Professionals)]
+)
+
+# Convert Professionals to percentages among the same attribute
+data[, NormalizedProfessionals := Professionals / sum(Professionals), by = Group]
+
+plot.column.dais(
+  data = data,
+  x = NormalizedProfessionals,
+  cat = Group,
+  group.by = Degree,
+  plot.title = "DS - Normalized Professionals by Degree",
+  plot.fig.num = "Figure 15",
+  order.bar = "No",
+  column.width = 0.6,
+  colours = c("#eb0072", "#6bbfae","#5bc2f4","#002d72","#DDA5C0"),
+  label = TRUE,
+  y.axis = "Normalized Professionals",
+  legend.title = "Degree",
+  caption = "Source: LinkedIn Data",
+  logo = FALSE,
+  export = FALSE,
+  stacked = TRUE
+)
+
+ggsave("Graphs_Exports/Figure_15.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+
+write.csv(grouped_data, "Graphs_data/Figure_15.csv", row.names = FALSE)
 
 
 
+# Software Engineers
+
+# create a new datatable that combines the data from both datatables
+data <- rbind(
+  software_withoutmc_degrees[, .(Group = "Without MC", Degree, Professionals)],
+  software_mc_Degrees[, .(Group = "With MC", Degree, Professionals)]
+)
+
+# Convert Professionals to percentages among the same attribute
+data[, NormalizedProfessionals := Professionals / sum(Professionals), by = Group]
+
+plot.column.dais(
+  data = data,
+  x = NormalizedProfessionals,
+  cat = Group,
+  group.by = Degree,
+  plot.title = "SE - Normalized Professionals by Degree",
+  plot.fig.num = "Figure 16",
+  order.bar = "No",
+  column.width = 0.6,
+  colours = c("#eb0072", "#6bbfae","#5bc2f4","#002d72","#DDA5C0"),
+  label = TRUE,
+  y.axis = "Normalized Professionals",
+  legend.title = "Degree",
+  caption = "Source: LinkedIn Data",
+  logo = FALSE,
+  export = FALSE,
+  stacked = TRUE
+)
+
+
+ggsave("Graphs_Exports/Figure_16.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+
+write.csv(grouped_data, "Graphs_data/Figure_16.csv", row.names = FALSE)
 
 
 
