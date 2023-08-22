@@ -29,9 +29,9 @@ data_list <- list()
 # files for fields of study and seniority
 stemvsbhase <- as.data.table(read_excel("Broad Fields of Study.xlsx"))
 
-seniority <- as.data.table(read_excel("Title Seniority.xlsx"))
+seniority <- as.data.table(read_excel("Title SeniorityV2.xlsx", sheet = 3))
 
-seniority2 <- as.data.table(read_excel("Title Seniority.xlsx", sheet = 2))
+seniority2 <- as.data.table(read_excel("Title SeniorityV2.xlsx", sheet = 4))
 
 ict <- as.data.table(read_excel("ICT Sectors.xlsx"))
 
@@ -1682,9 +1682,9 @@ plot.column.dais(
   stacked = TRUE
 )
 
-ggsave("Graphs_Exports/Figure_11.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ggsave("Graphs_Exports/Figure_11_V2.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-write.csv(grouped_data, "Graphs_data/Figure_11.csv", row.names = FALSE)
+write.csv(grouped_data, "Graphs_data/Figure_11_V2.csv", row.names = FALSE)
 
 
 #####
@@ -1748,7 +1748,7 @@ plot.column.dais(
   stacked = TRUE
 )
 
-ggsave("Graphs_Exports/Figure_12.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ggsave("Graphs_Exports/Figure_12_V2.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
 write.csv(grouped_data, "Graphs_data/Figure_12.csv", row.names = FALSE)
 
