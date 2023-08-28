@@ -29,9 +29,9 @@ data_list <- list()
 # files for fields of study and seniority
 stemvsbhase <- as.data.table(read_excel("Broad Fields of Study.xlsx"))
 
-seniority <- as.data.table(read_excel("Title SeniorityV2.xlsx", sheet = 3))
+seniority <- as.data.table(read_excel("Title Seniority.xlsx", sheet = 1))
 
-seniority2 <- as.data.table(read_excel("Title SeniorityV2.xlsx", sheet = 4))
+seniority2 <- as.data.table(read_excel("Title Seniority.xlsx", sheet = 2))
 
 ict <- as.data.table(read_excel("ICT Sectors.xlsx"))
 
@@ -392,30 +392,38 @@ combined_data <- rbind(transform(top_5_diff_mc, Group = "With MC"),
 
 
 combined_data[, Difference := Difference * 100]
+combined_data[, Difference := round(Difference, 2)] 
+
+
+# Run updated plot.column.dais code here first
+
 
  plot.column.dais(data = combined_data,
                   x = Difference,
                   cat = `Common Skill`,
                   group.by = Group,
-                  plot.title = "DS - Comparison of largest differences in skills between groups",
+                  plot.title = "Data Scientists: Skills Reporting Differences \nBased on Microcredential Completion",
                   plot.fig.num = "Figure 1",
                   order.bar = "No",
                   column.width = 0.6,
-                  colours = c("#eb0072", "#6bbfae"),
+                  colours = c("#eb0072", "black"),
                   label = TRUE,
+                  label.colour = "#A9A9A9",
                   label.unit = "%",
                   language = "EN",
                   y.axis = "Common Skill",
                   legend.title = "Group",
-                  caption = "Source: Linkedin Insights Data",
+                  caption = "Source: LinkedIn Talent Insights Data, July 2023",
                   logo = FALSE,
-                  export = FALSE)+coord_flip() +
-                  scale_y_continuous(labels = function(x) paste0(round(x, 1), "%")) 
-
- ggsave("Graphs_Exports/Figure_1.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+                  export = FALSE) +coord_flip() +
+                  scale_y_continuous(labels = function(x) paste0(x, "%")) 
+                  #annotate("text", x = -2, y = 10, label = "DS: Data Scientists")
+ 
+ 
+ggsave("Graphs_Exports/Figure_1.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
  
 
- write.csv(combined_data, "Graphs_data/Figure_1.csv", row.names = FALSE)
+write.csv(combined_data, "Graphs_data/Figure_1.csv", row.names = FALSE)
  
 #write.xlsx(combined_data, "topskills_datascientists.xlsx", rowNames = FALSE)
 
@@ -538,25 +546,32 @@ combined_data <- rbind(transform(top_5_diff_mc, Group = "With MC"),
 
 
 combined_data[, Difference := Difference * 100]
+combined_data[, Difference := round(Difference, 2)] 
+
+
+# Run updated plot.column.dais code here first
+
 
 plot.column.dais(data = combined_data,
                  x = Difference,
                  cat = Industry,
                  group.by = Group,
-                 plot.title = "DS - Comparison of largest differences in Industries between groups",
+                 plot.title = "Data Scientists: Industries Differences \nBased on Microcredential Completion",
                  plot.fig.num = "Figure 2",
                  order.bar = "No",
                  column.width = 0.6,
-                 colours = c("#eb0072", "#6bbfae"),
+                 colours = c("#eb0072", "black"),
                  label = TRUE,
+                 label.colour = "#A9A9A9",
                  label.unit = "%",
                  language = "EN",
                  y.axis = "Industry",
                  legend.title = "Group",
-                 caption = "Source: Linkedin Insights Data",
+                 caption = "Source: LinkedIn Talent Insights Data, July 2023",
                  logo = FALSE,
-                 export = FALSE)+coord_flip() +
-  scale_y_continuous(labels = function(x) paste0(round(x, 1), "%")) 
+                 export = FALSE) +coord_flip() +
+  scale_y_continuous(labels = function(x) paste0(x, "%")) 
+#annotate("text", x = -2, y = 10, label = "DS: Data Scientists")
 
 
 ggsave("Graphs_Exports/Figure_2.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
@@ -691,28 +706,34 @@ combined_data_with_seniority <- combined_data_with_seniority %>%
 #             position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
 
 
+
 combined_data_with_seniority[, Difference := Difference * 100]
+combined_data_with_seniority[, Difference := round(Difference, 2)] 
+
+
+# Run updated plot.column.dais code here first
+
 
 plot.column.dais(data = combined_data_with_seniority,
                  x = Difference,
                  cat = Title_and_Seniority,
                  group.by = Group,
-                 plot.title = "DS - Comparison of largest differences in Job Titles between groups",
+                 plot.title = "Data Scientists: Job Title Differences \nBased on Microcredential Completion",
                  plot.fig.num = "Figure 3",
                  order.bar = "No",
                  column.width = 0.6,
-                 colours = c("#eb0072", "#6bbfae"),
+                 colours = c("#eb0072", "black"),
                  label = TRUE,
+                 label.colour = "#A9A9A9",
                  label.unit = "%",
                  language = "EN",
                  y.axis = "Job Titles",
                  legend.title = "Group",
-                 caption = "Source: Linkedin Insights Data",
+                 caption = "Source: LinkedIn Talent Insights Data, July 2023",
                  logo = FALSE,
-                 export = FALSE)+coord_flip() +
-        scale_y_continuous(labels = function(x) paste0(round(x, 0), "%")) +
-        xlab("Job Titles")
-
+                 export = FALSE) +coord_flip() + labs(x = "Job Titles and Seniority") +
+  scale_y_continuous(labels = function(x) paste0(x, "%")) 
+#annotate("text", x = -2, y = 10, label = "DS: Data Scientists")
 
 
 ggsave("Graphs_Exports/Figure_3.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
@@ -842,28 +863,33 @@ combined_data_with_broad_field <- combined_data_with_broad_field %>%
 #             position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
 
 
-
 combined_data_with_broad_field[, Difference := Difference * 100]
+combined_data_with_broad_field[, Difference := round(Difference, 2)] 
+
+
+# Run updated plot.column.dais code here first
+
 
 plot.column.dais(data = combined_data_with_broad_field,
                  x = Difference,
                  cat = Study_Field_and_Broad,
                  group.by = Group,
-                 plot.title = "DS - Comparison of largest differences in Fields of Study between groups",
+                 plot.title = "Data Scientists: Field of Study Differences \nBased on Microcredential Completion",
                  plot.fig.num = "Figure 4",
                  order.bar = "No",
                  column.width = 0.6,
-                 colours = c("#eb0072", "#6bbfae"),
+                 colours = c("#eb0072", "black"),
                  label = TRUE,
+                 label.colour = "#A9A9A9",
                  label.unit = "%",
                  language = "EN",
                  y.axis = "Field of Study",
                  legend.title = "Group",
-                 caption = "Source: Linkedin Insights Data",
+                 caption = "Source: LinkedIn Talent Insights Data, July 2023",
                  logo = FALSE,
-                 export = FALSE)+coord_flip() +
-      scale_y_continuous(labels = function(x) paste0(round(x, 0), "%"))+
-     xlab("Field of Study")
+                 export = FALSE) +coord_flip() + labs(x = "Field of Study") +
+  scale_y_continuous(labels = function(x) paste0(x, "%")) 
+#annotate("text", x = -2, y = 10, label = "DS: Data Scientists")
 
 
 ggsave("Graphs_Exports/Figure_4.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
@@ -1013,27 +1039,34 @@ combined_data <- rbind(transform(top_5_diff_mc, Group = "With MC"),
 #             position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
 
 
+
 combined_data[, Difference := Difference * 100]
+combined_data[, Difference := round(Difference, 2)] 
+
+
+# Run updated plot.column.dais code here first
+
 
 plot.column.dais(data = combined_data,
                  x = Difference,
                  cat = `Common Skill`,
                  group.by = Group,
-                 plot.title = "SE - Comparison of largest differences in skills between groups",
+                 plot.title = "Software Engineers: Skills Reporting Differences \nBased on Microcredential Completion",
                  plot.fig.num = "Figure 5",
                  order.bar = "No",
                  column.width = 0.6,
-                 colours = c("#eb0072", "#6bbfae"),
+                 colours = c("#5bc2f4", "black"),
                  label = TRUE,
+                 label.colour = "#A9A9A9",
                  label.unit = "%",
                  language = "EN",
                  y.axis = "Common Skill",
                  legend.title = "Group",
-                 caption = "Source: Linkedin Insights Data",
+                 caption = "Source: LinkedIn Talent Insights Data, July 2023",
                  logo = FALSE,
-                 export = FALSE)+coord_flip() +
-  scale_y_continuous(labels = function(x) paste0(round(x, 1), "%")) 
-
+                 export = FALSE) +coord_flip() +
+  scale_y_continuous(labels = function(x) paste0(x, "%")) 
+#annotate("text", x = -2, y = 10, label = "DS: Data Scientists")
 
 ggsave("Graphs_Exports/Figure_5.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
@@ -1157,25 +1190,32 @@ combined_data <- rbind(transform(top_5_diff_mc, Group = "With MC"),
 
 
 combined_data[, Difference := Difference * 100]
+combined_data[, Difference := round(Difference, 2)] 
+
+
+# Run updated plot.column.dais code here first
+
 
 plot.column.dais(data = combined_data,
                  x = Difference,
                  cat = Industry,
                  group.by = Group,
-                 plot.title = "SE - Comparison of largest differences in Industries between groups",
+                 plot.title = "Software Engineers: Industry Differences \nBased on Microcredential Completion",
                  plot.fig.num = "Figure 6",
                  order.bar = "No",
                  column.width = 0.6,
-                 colours = c("#eb0072", "#6bbfae"),
+                 colours = c("#5bc2f4", "black"),
                  label = TRUE,
+                 label.colour = "#A9A9A9",
                  label.unit = "%",
                  language = "EN",
                  y.axis = "Industry",
                  legend.title = "Group",
-                 caption = "Source: Linkedin Insights Data",
+                 caption = "Source: LinkedIn Talent Insights Data, July 2023",
                  logo = FALSE,
-                 export = FALSE)+coord_flip() +
-  scale_y_continuous(labels = function(x) paste0(round(x, 1), "%")) 
+                 export = FALSE) +coord_flip() +
+  scale_y_continuous(labels = function(x) paste0(x, "%")) 
+#annotate("text", x = -2, y = 10, label = "DS: Data Scientists")
 
 
 ggsave("Graphs_Exports/Figure_6.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
@@ -1308,27 +1348,34 @@ combined_data_with_seniority <- combined_data_with_seniority %>%
 #             position = position_dodge(width = 0.9), vjust = 0.5, color = "black", family = "Replica-Regular")
 
 
+
 combined_data_with_seniority[, Difference := Difference * 100]
+combined_data_with_seniority[, Difference := round(Difference, 2)] 
+
+
+# Run updated plot.column.dais code here first
+
 
 plot.column.dais(data = combined_data_with_seniority,
                  x = Difference,
                  cat = Title_and_Seniority,
                  group.by = Group,
-                 plot.title = "SE - Comparison of largest differences in Job Titles between groups",
+                 plot.title = "Software Engineers: Job Title Differences \nBased on Microcredential Completion",
                  plot.fig.num = "Figure 7",
                  order.bar = "No",
                  column.width = 0.6,
-                 colours = c("#eb0072", "#6bbfae"),
+                 colours = c("#5bc2f4", "black"),
                  label = TRUE,
+                 label.colour = "#A9A9A9",
                  label.unit = "%",
                  language = "EN",
                  y.axis = "Job Titles",
                  legend.title = "Group",
-                 caption = "Source: Linkedin Insights Data",
+                 caption = "Source: LinkedIn Talent Insights Data, July 2023",
                  logo = FALSE,
-                 export = FALSE)+coord_flip() +
-  scale_y_continuous(labels = function(x) paste0(round(x, 0), "%")) +
-  xlab("Job Titles")
+                 export = FALSE) +coord_flip() + labs(x = "Job Titles and Seniority") +
+  scale_y_continuous(labels = function(x) paste0(x, "%")) 
+#annotate("text", x = -2, y = 10, label = "DS: Data Scientists")
 
 
 ggsave("Graphs_Exports/Figure_7.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
@@ -1460,26 +1507,32 @@ combined_data_with_broad_field <- combined_data_with_broad_field %>%
 
 
 combined_data_with_broad_field[, Difference := Difference * 100]
+combined_data_with_broad_field[, Difference := round(Difference, 2)] 
+
+
+# Run updated plot.column.dais code here first
+
 
 plot.column.dais(data = combined_data_with_broad_field,
                  x = Difference,
                  cat = Study_Field_and_Broad,
                  group.by = Group,
-                 plot.title = "SE - Comparison of largest differences in Fields of Study between groups",
+                 plot.title = "Software Engineers: Field of Study Differences \nBased on Microcredential Completion",
                  plot.fig.num = "Figure 8",
                  order.bar = "No",
                  column.width = 0.6,
-                 colours = c("#eb0072", "#6bbfae"),
+                 colours = c("#5bc2f4", "black"),
                  label = TRUE,
+                 label.colour = "#A9A9A9",
                  label.unit = "%",
                  language = "EN",
                  y.axis = "Field of Study",
                  legend.title = "Group",
-                 caption = "Source: Linkedin Insights Data",
+                 caption = "Source: LinkedIn Talent Insights Data, July 2023",
                  logo = FALSE,
-                 export = FALSE)+coord_flip() +
-  scale_y_continuous(labels = function(x) paste0(round(x, 0), "%"))+
-  xlab("Field of Study")
+                 export = FALSE) +coord_flip() + labs(x = "Field of Study") +
+  scale_y_continuous(labels = function(x) paste0(x, "%")) 
+#annotate("text", x = -2, y = 10, label = "DS: Data Scientists")
 
 
 ggsave("Graphs_Exports/Figure_8.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
@@ -1557,25 +1610,29 @@ combined_data_with_broad_field <- na.omit(combined_data_with_broad_field)
 
 grouped_data <- combined_data_with_broad_field[, .(NormalizedProfessionals = sum(NormalizedProfessionals, na.rm = TRUE)), by = .(`Broad Field of Study`, Group)]
 
+dais_palette <- c("#DDA5C0", "#6bbfae" , "#ffa300",  "#002d72", "#eb0072" ,"#5bc2f4" )
 
-plot.column.dais(
-  data = grouped_data,
-  x = NormalizedProfessionals,
-  cat = Group,
-  group.by = `Broad Field of Study`,
-  plot.title = "DS - Normalized Professionals in STEM and BHASE",
-  plot.fig.num = "Figure 9",
-  order.bar = "No",
-  column.width = 0.6,
-  colours = c("#eb0072", "#6bbfae"),
-  label = TRUE,
-  y.axis = "Normalized Professionals",
-  legend.title = "Broad Field of Study",
-  caption = "Source: LinkedIn Data",
-  logo = FALSE,
-  export = FALSE,
-  stacked = TRUE
-)
+# Re-run old plot.column.dais first and re-run first section of code without comparisons.
+
+plot.column.dais(data = grouped_data,
+                 x = NormalizedProfessionals,
+                 cat = Group,
+                 group.by = `Broad Field of Study`,
+                 plot.title = "Data Scientists: Normalized Professionals \nIn STEM and BHASE",
+                 plot.fig.num = "Figure 9",
+                 order.bar = "No",
+                 column.width = 0.6,
+                 colours = c("#6bbfae", "#DDA5C0"),
+                 label = TRUE,
+                 label.unit = "%",
+                 language = "EN",
+                 y.axis = "Normalized Professionals",
+                 legend.title = "Broad Field of Study",
+                 caption = "Source: LinkedIn Talent Insights Data, July 2023",
+                 logo = FALSE,
+                 export = FALSE,
+                 stacked = TRUE)
+
 
 ggsave("Graphs_Exports/Figure_9.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
@@ -1608,25 +1665,26 @@ combined_data_with_broad_field <- na.omit(combined_data_with_broad_field)
 
 grouped_data <- combined_data_with_broad_field[, .(NormalizedProfessionals = sum(NormalizedProfessionals, na.rm = TRUE)), by = .(`Broad Field of Study`, Group)]
 
+plot.column.dais(data = grouped_data,
+                 x = NormalizedProfessionals,
+                 cat = Group,
+                 group.by = `Broad Field of Study`,
+                 plot.title = "Software Engineers: Normalized Professionals \nIn STEM and BHASE",
+                 plot.fig.num = "Figure 10",
+                 order.bar = "No",
+                 column.width = 0.6,
+                 colours = c("#6bbfae", "#DDA5C0"),
+                 label = TRUE,
+                 label.unit = "%",
+                 language = "EN",
+                 y.axis = "Normalized Professionals",
+                 legend.title = "Broad Field of Study",
+                 caption = "Source: LinkedIn Talent Insights Data, July 2023",
+                 logo = FALSE,
+                 export = FALSE,
+                 stacked = TRUE)
 
-plot.column.dais(
-  data = grouped_data,
-  x = NormalizedProfessionals,
-  cat = Group,
-  group.by = `Broad Field of Study`,
-  plot.title = "SE - Normalized Professionals in STEM and BHASE",
-  plot.fig.num = "Figure 10",
-  order.bar = "No",
-  column.width = 0.6,
-  colours = c("#eb0072", "#6bbfae"),
-  label = TRUE,
-  y.axis = "Normalized Professionals",
-  legend.title = "Broad Field of Study",
-  caption = "Source: LinkedIn Data",
-  logo = FALSE,
-  export = FALSE,
-  stacked = TRUE
-)
+
 
 ggsave("Graphs_Exports/Figure_10.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
@@ -1662,29 +1720,31 @@ combined_data_with_seniority <- combined_data_with_seniority %>%
 
 grouped_data <- combined_data_with_seniority[, .(NormalizedProfessionals = sum(NormalizedProfessionals, na.rm = TRUE)), by = .(Seniority, Group)]
 
+dais_palette <- c("#DDA5C0", "#6bbfae" , "#ffa300",  "#002d72", "#eb0072" ,"#5bc2f4" )
 
-plot.column.dais(
-  data = grouped_data,
-  x = NormalizedProfessionals,
-  cat = Group,
-  group.by = Seniority,
-  plot.title = "DS - Normalized Professionals by Seniority",
-  plot.fig.num = "Figure 11",
-  order.bar = "No",
-  column.width = 0.6,
-  colours = c("#eb0072", "#6bbfae","#5bc2f4"),
-  label = FALSE,
-  y.axis = "Normalized Professionals",
-  legend.title = "Job Title",
-  caption = "Source: LinkedIn Data",
-  logo = FALSE,
-  export = FALSE,
-  stacked = TRUE
-)
 
-ggsave("Graphs_Exports/Figure_11_V2.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+plot.column.dais(data = grouped_data,
+                 x = NormalizedProfessionals,
+                 cat = Group,
+                 group.by = Seniority,
+                 plot.title = "Data Scientists: Normalized Professionals \nBy Seniority",
+                 plot.fig.num = "Figure 11",
+                 order.bar = "No",
+                 column.width = 0.6,
+                 colours = c("#14365d", "#4c6282","#94a3b5"),
+                 label = TRUE,
+                 label.unit = "%",
+                 language = "EN",
+                 y.axis = "Normalized Professionals",
+                 legend.title = "Seniority",
+                 caption = "Source: LinkedIn Talent Insights Data, July 2023",
+                 logo = FALSE,
+                 export = FALSE) + coord_flip()
 
-write.csv(grouped_data, "Graphs_data/Figure_11_V2.csv", row.names = FALSE)
+
+ggsave("Graphs_Exports/Figure_11.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+
+write.csv(grouped_data, "Graphs_data/Figure_11.csv", row.names = FALSE)
 
 
 #####
@@ -1715,40 +1775,35 @@ data <- rbind(
 data[, NormalizedProfessionals := Professionals / sum(Professionals), by = Group]
 
 
+setkey(data, `Common Title`)
+setkey(seniority2, Titles)
+combined_data_with_seniority <- data[seniority2, nomatch = 0]
 
-#Add STEM VS BHASE 
-combined_data_with_seniority <- merge(data, seniority2,
-                                      by.x = "Common Title", 
-                                      by.y = "Titles",all.x = TRUE)
-
-combined_data_with_seniority <- combined_data_with_seniority %>%
-  mutate(Title_and_Seniority = paste(`Common Title`, "\n(", `Seniority`, ")", sep = ""))
-
-
+combined_data_with_seniority[, Title_and_Seniority := paste(`Common Title`, "\n(", Seniority, ")", sep = "")]
 
 grouped_data <- combined_data_with_seniority[, .(NormalizedProfessionals = sum(NormalizedProfessionals, na.rm = TRUE)), by = .(Seniority, Group)]
 
 
-plot.column.dais(
-  data = grouped_data,
-  x = NormalizedProfessionals,
-  cat = Group,
-  group.by = Seniority,
-  plot.title = "SE - Normalized Professionals by Seniority",
-  plot.fig.num = "Figure 12",
-  order.bar = "No",
-  column.width = 0.6,
-  colours = c("#eb0072", "#6bbfae","#5bc2f4"),
-  label = FALSE,
-  y.axis = "Normalized Professionals",
-  legend.title = "Job Title",
-  caption = "Source: LinkedIn Data",
-  logo = FALSE,
-  export = FALSE,
-  stacked = TRUE
-)
+plot.column.dais(data = grouped_data,
+                 x = NormalizedProfessionals,
+                 cat = Group,
+                 group.by = Seniority,
+                 plot.title = "Software Engineers: Normalized Professionals \nBy Seniority",
+                 plot.fig.num = "Figure 12",
+                 order.bar = "No",
+                 column.width = 0.6,
+                 colours = c("#3c7d78", "#679894","#CEDFDD"),
+                 label = TRUE,
+                 label.unit = "%",
+                 language = "EN",
+                 y.axis = "Normalized Professionals",
+                 legend.title = "Seniority",
+                 caption = "Source: LinkedIn Talent Insights Data, July 2023",
+                 logo = FALSE,
+                 export = FALSE) + coord_flip()
 
-ggsave("Graphs_Exports/Figure_12_V2.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+
+ggsave("Graphs_Exports/Figure_12.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
 write.csv(grouped_data, "Graphs_data/Figure_12.csv", row.names = FALSE)
 
@@ -1816,15 +1871,15 @@ plot.column.dais(
   x = NormalizedProfessionals,
   cat = Group,
   group.by = ICT,
-  plot.title = "DS - Normalized Professionals in ICT",
+  plot.title = "Data Scientists: Normalized Professionals \nIn ICT",
   plot.fig.num = "Figure 13",
   order.bar = "No",
   column.width = 0.6,
-  colours = c("#eb0072", "#6bbfae","#5bc2f4"),
+  colours = c("#fcd8ad","#f7941e"),
   label = TRUE,
   y.axis = "Normalized Professionals",
   legend.title = "Industry",
-  caption = "Source: LinkedIn Data",
+  caption = "Source: LinkedIn Talent Insights Data, July 2023",
   logo = FALSE,
   export = FALSE,
   stacked = TRUE
@@ -1864,15 +1919,15 @@ plot.column.dais(
   x = NormalizedProfessionals,
   cat = Group,
   group.by = ICT,
-  plot.title = "SE - Normalized Professionals in ICT",
+  plot.title = "Software Engineers: Normalized Professionals \nIn ICT",
   plot.fig.num = "Figure 14",
   order.bar = "No",
   column.width = 0.6,
-  colours = c("#eb0072", "#6bbfae","#5bc2f4"),
+  colours = c("#ffeba2","#ffc800"),
   label = TRUE,
   y.axis = "Normalized Professionals",
   legend.title = "Industry",
-  caption = "Source: LinkedIn Data",
+  caption = "Source: LinkedIn Talent Insights Data, July 2023",
   logo = FALSE,
   export = FALSE,
   stacked = TRUE
@@ -1898,24 +1953,32 @@ data <- rbind(
 # Convert Professionals to percentages among the same attribute
 data[, NormalizedProfessionals := Professionals / sum(Professionals), by = Group]
 
+data[, NormalizedProfessionals := NormalizedProfessionals * 100]
+data[, NormalizedProfessionals := round(NormalizedProfessionals, 2)]
+
+
 plot.column.dais(
   data = data,
   x = NormalizedProfessionals,
   cat = Group,
   group.by = Degree,
-  plot.title = "DS - Normalized Professionals by Degree",
+  plot.title = "Data Scientists: Normalized Professionals \nBy Degree",
   plot.fig.num = "Figure 15",
   order.bar = "No",
   column.width = 0.6,
-  colours = c("#eb0072", "#6bbfae","#5bc2f4","#002d72","#DDA5C0"),
-  label = TRUE,
+  colours = c("#14365d", "#4f6885","#4c6282","#8a9bae","#94a3b5"),
+  label = FALSE,
   y.axis = "Normalized Professionals",
   legend.title = "Degree",
-  caption = "Source: LinkedIn Data",
+  caption = "Source: LinkedIn Talent Insights Data, July 2023",
   logo = FALSE,
-  export = FALSE,
-  stacked = TRUE
-)
+  export = FALSE) + scale_y_continuous(labels = function(x) paste0(x, "%")) +
+  geom_text(aes(label = paste0(NormalizedProfessionals, "%")), 
+            position = position_dodge(width = 0.65), 
+            vjust = 0.25, 
+            colour = "black") + coord_flip()
+
+
 
 ggsave("Graphs_Exports/Figure_15.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
@@ -1934,24 +1997,31 @@ data <- rbind(
 # Convert Professionals to percentages among the same attribute
 data[, NormalizedProfessionals := Professionals / sum(Professionals), by = Group]
 
+data[, NormalizedProfessionals := NormalizedProfessionals * 100]
+data[, NormalizedProfessionals := round(NormalizedProfessionals, 2)]
+
+
 plot.column.dais(
   data = data,
   x = NormalizedProfessionals,
   cat = Group,
   group.by = Degree,
-  plot.title = "SE - Normalized Professionals by Degree",
+  plot.title = "Software Engineers: Normalized Professionals \nBy Degree",
   plot.fig.num = "Figure 16",
   order.bar = "No",
   column.width = 0.6,
-  colours = c("#eb0072", "#6bbfae","#5bc2f4","#002d72","#DDA5C0"),
-  label = TRUE,
+  colours = c("#3c7d78", "#6d9e9a","#679894","#9ebebc","#CEDFDD"),
+  label = FALSE,
   y.axis = "Normalized Professionals",
   legend.title = "Degree",
-  caption = "Source: LinkedIn Data",
+  caption = "Source: LinkedIn Talent Insights Data, July 2023",
   logo = FALSE,
-  export = FALSE,
-  stacked = TRUE
-)
+  export = FALSE) + scale_y_continuous(labels = function(x) paste0(x, "%")) +
+  geom_text(aes(label = paste0(NormalizedProfessionals, "%")), 
+            position = position_dodge(width = 0.65), 
+            vjust = 0.25, 
+            colour = "black") + coord_flip()
+
 
 
 ggsave("Graphs_Exports/Figure_16.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")

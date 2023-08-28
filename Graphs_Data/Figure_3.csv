@@ -1,21 +1,21 @@
-"Common Title","Difference","AbsoluteDifference","Group","Level","Seniority","Title_and_Seniority"
-"Artificial Intelligence Intern",0.3094776733658,0.003094776733658,"With MC",1,"Entry","Artificial Intelligence Intern
+"Common Title","Difference","AbsoluteDifference","Group","level","Seniority","Title_and_Seniority"
+"Artificial Intelligence Intern",0.31,0.003094776733658,"With MC",1,"Entry","Artificial Intelligence Intern
 (Entry)"
-"Big Data Consultant",0.258905503349567,0.00258905503349567,"With MC",1,"Entry","Big Data Consultant
-(Entry)"
-"Big Data Developer",-1.16013043875895,0.0116013043875895,"Without MC",1,"Entry","Big Data Developer
-(Entry)"
-"Data Engineer",2.16718682122688,0.0216718682122688,"With MC",1,"Entry","Data Engineer
-(Entry)"
-"Data Scientist",2.85299060292201,0.0285299060292201,"With MC",1,"Entry","Data Scientist
-(Entry)"
-"Lead Data Scientist",-0.870301461005556,0.00870301461005556,"Without MC",3,"Senior","Lead Data Scientist
+"Big Data Consultant",0.26,0.00258905503349567,"With MC",2,"Mid","Big Data Consultant
+(Mid)"
+"Big Data Developer",-1.16,0.0116013043875895,"Without MC",2,"Mid","Big Data Developer
+(Mid)"
+"Data Engineer",2.17,0.0216718682122688,"With MC",2,"Mid","Data Engineer
+(Mid)"
+"Data Scientist",2.85,0.0285299060292201,"With MC",2,"Mid","Data Scientist
+(Mid)"
+"Lead Data Scientist",-0.87,0.00870301461005556,"Without MC",3,"Senior","Lead Data Scientist
 (Senior)"
-"Machine Learning Researcher",-1.72607003223815,0.0172607003223815,"Without MC",1,"Entry","Machine Learning Researcher
-(Entry)"
-"Quantitative Analyst",-1.64108763746942,0.0164108763746942,"Without MC",1,"Entry","Quantitative Analyst
-(Entry)"
-"Senior Data Engineer",-0.929819146260603,0.00929819146260603,"Without MC",2,"Mid","Senior Data Engineer
+"Machine Learning Researcher",-1.73,0.0172607003223815,"Without MC",2,"Mid","Machine Learning Researcher
 (Mid)"
-"Senior Machine Learning Engineer",2.63113896700734,0.0263113896700734,"With MC",2,"Mid","Senior Machine Learning Engineer
-(Mid)"
+"Quantitative Analyst",-1.64,0.0164108763746942,"Without MC",1,"Entry","Quantitative Analyst
+(Entry)"
+"Senior Data Engineer",-0.93,0.00929819146260603,"Without MC",3,"Senior","Senior Data Engineer
+(Senior)"
+"Senior Machine Learning Engineer",2.63,0.0263113896700734,"With MC",3,"Senior","Senior Machine Learning Engineer
+(Senior)"

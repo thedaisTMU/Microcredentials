@@ -1,11 +1,11 @@
-"Industry","Difference","AbsoluteDifference","Group"
-"Computer Software",7.11970505247924,0.0711970505247924,"With MC"
-"Design",2.18912235209243,0.0218912235209243,"With MC"
-"Professional Training & Coaching",1.95492891228918,0.0195492891228918,"With MC"
-"Internet",1.56558188430122,0.0156558188430122,"With MC"
-"Financial Services",1.52875400059523,0.0152875400059523,"With MC"
-"Information Technology & Services",-2.73508368912557,0.0273508368912557,"Without MC"
-"Banking",-2.10669738299778,0.0210669738299778,"Without MC"
-"Telecommunications",-1.98893410379962,0.0198893410379962,"Without MC"
-"Computer Games",-1.77658645663994,0.0177658645663994,"Without MC"
-"Mobile Games",-1.32728322760199,0.0132728322760199,"Without MC"
+"Industry","Difference","AbsoluteDifference","Group","nudged_y"
+"Computer Software",7.12,0.0711970505247924,"With MC",7.32
+"Design",2.19,0.0218912235209243,"With MC",2.39
+"Professional Training & Coaching",1.95,0.0195492891228918,"With MC",2.15
+"Internet",1.57,0.0156558188430122,"With MC",1.77
+"Financial Services",1.53,0.0152875400059523,"With MC",1.73
+"Information Technology & Services",-2.74,0.0273508368912557,"Without MC",-2.94
+"Banking",-2.11,0.0210669738299778,"Without MC",-2.31
+"Telecommunications",-1.99,0.0198893410379962,"Without MC",-2.19
+"Computer Games",-1.78,0.0177658645663994,"Without MC",-1.98
+"Mobile Games",-1.33,0.0132728322760199,"Without MC",-1.53
