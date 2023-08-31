@@ -1971,6 +1971,9 @@ data <- rbind(
   data_scientist_mc_Degrees[, .(Group = "With MC", Degree, Professionals)]
 )
 
+data[, Degree := factor(Degree, levels = c("Associate's Degree", "Bachelor's Degree", "Master of Business Administration", "Master's Degree", "Doctor of Philosophy"))]
+
+
 # Convert Professionals to percentages among the same attribute
 data[, NormalizedProfessionals := Professionals / sum(Professionals), by = Group]
 
@@ -2014,6 +2017,9 @@ data <- rbind(
   software_withoutmc_degrees[, .(Group = "Without MC", Degree, Professionals)],
   software_mc_Degrees[, .(Group = "With MC", Degree, Professionals)]
 )
+
+data[, Degree := factor(Degree, levels = c("Associate's Degree", "Bachelor's Degree", "Master of Business Administration", "Master's Degree", "Doctor of Philosophy"))]
+
 
 # Convert Professionals to percentages among the same attribute
 data[, NormalizedProfessionals := Professionals / sum(Professionals), by = Group]
