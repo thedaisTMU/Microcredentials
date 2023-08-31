@@ -1,7 +1,11 @@
-"Seniority","Group","NormalizedProfessionals"
-"Mid","Without MC",1.53218914240264
-"Senior","Without MC",0.382612560627563
-"Mid","With MC",1.68065107748739
-"Entry","With MC",0.0710683172856488
-"Entry","Without MC",0.0851982969697915
-"Senior","With MC",0.243924805135259
+"Industry","Difference","AbsoluteDifference","Group","nudged_y"
+"Computer Software",7,0.0711970505247924,"With MC",7.8
+"Design",2,0.0218912235209243,"With MC",2.8
+"Professional Training & Coaching",2,0.0195492891228918,"With MC",2.8
+"Internet",2,0.0156558188430122,"With MC",2.8
+"Financial Services",2,0.0152875400059523,"With MC",2.8
+"Information Technology & Services",-3,0.0273508368912557,"Without MC",-3.8
+"Banking",-2,0.0210669738299778,"Without MC",-2.8
+"Telecommunications",-2,0.0198893410379962,"Without MC",-2.8
+"Computer Games",-2,0.0177658645663994,"Without MC",-2.8
+"Mobile Games",-1,0.0132728322760199,"Without MC",-1.8

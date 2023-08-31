@@ -1,11 +1,5 @@
-"Common Skill","Difference","AbsoluteDifference","Group","nudged_y"
-"React.js",38.57,0.385732496671003,"With MC",39.57282
-"Node.js",30.17,0.301693588496472,"With MC",31.17282
-"Web Development",29.55,0.295502484968819,"With MC",30.55282
-"Cascading Style Sheets (CSS)",29.41,0.29405045447295,"With MC",30.41282
-"Express.js",24.5,0.245031811814192,"With MC",25.50282
-"Java",-30.72,0.307176724979061,"Without MC",-31.72282
-"C++",-21.78,0.217793023124148,"Without MC",-22.78282
-"C#",-16.98,0.169829441932865,"Without MC",-17.98282
-"C (Programming Language)",-16.81,0.168050022218237,"Without MC",-17.81282
-"Software Development",-12.67,0.126738146070396,"Without MC",-13.67282
+"ICT","Group","NormalizedProfessionals","nudged_y","cumsum"
+"Non-ICT","Without MC",40,20,40
+"ICT","Without MC",60,70,100
+"Non-ICT","With MC",43,21.5,43
+"ICT","With MC",57,71.5,100

@@ -1,5 +1,5 @@
-"ICT","Group","NormalizedProfessionals"
-"Non-ICT","Without MC",0.574905940029643
-"Non-ICT","With MC",0.532554257095158
-"ICT","Without MC",0.425607114354122
-"ICT","With MC",0.459098497495826
+"ICT","Group","NormalizedProfessionals","nudged_y","cumsum"
+"Non-ICT","Without MC",57,28.5,57
+"ICT","Without MC",43,78.5,100
+"Non-ICT","With MC",54,27,54
+"ICT","With MC",46,77,100

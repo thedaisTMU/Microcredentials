@@ -1,11 +1,11 @@
-"Industry","Difference","AbsoluteDifference","Group","nudged_y"
-"E-learning",2.66,0.0266369149690194,"With MC",2.735
-"Information Technology & Services",2.46,0.024586305645106,"With MC",2.535
-"Computer Software",2.34,0.0233749456981503,"With MC",2.415
-"Sports",1.21,0.0121396071975673,"With MC",1.285
-"Internet",1.13,0.0113049306079521,"With MC",1.205
-"Government Administration",-1.36,0.0135567425749365,"Without MC",-1.435
-"Insurance",-1,0.00996553261540572,"Without MC",-1.075
-"Semiconductors",-0.75,0.00745092827583053,"Without MC",-0.825
-"Hospital & Health Care",-0.7,0.00702308686009557,"Without MC",-0.775
-"Computer & Network Security",-0.68,0.00680802295539246,"Without MC",-0.755
+"Common Skill","Difference","AbsoluteDifference","Group","nudged_y"
+"React.js",39,0.385732496671003,"With MC",43.056
+"Node.js",30,0.301693588496472,"With MC",34.056
+"Web Development",30,0.295502484968819,"With MC",34.056
+"Cascading Style Sheets (CSS)",29,0.29405045447295,"With MC",33.056
+"Express.js",25,0.245031811814192,"With MC",29.056
+"Java",-31,0.307176724979061,"Without MC",-35.056
+"C++",-22,0.217793023124148,"Without MC",-26.056
+"C#",-17,0.169829441932865,"Without MC",-21.056
+"C (Programming Language)",-17,0.168050022218237,"Without MC",-21.056
+"Software Development",-13,0.126738146070396,"Without MC",-17.056

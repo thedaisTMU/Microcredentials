@@ -1,5 +1,7 @@
-"Broad Field of Study","Group","NormalizedProfessionals"
-"STEM","Without MC",0.889209706181358
-"STEM","With MC",0.728436657681941
-"BHASE","Without MC",0.0840499641684583
-"BHASE","With MC",0.271563342318059
+"Seniority","Group","NormalizedProfessionals","nudged_y"
+"Mid","Without MC",77,79.5
+"Senior","Without MC",19,21.5
+"Mid","With MC",84,86.5
+"Entry","With MC",4,6.5
+"Entry","Without MC",4,6.5
+"Senior","With MC",12,14.5

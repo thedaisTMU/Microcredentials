@@ -1,11 +1,11 @@
 "Common Skill","Difference","AbsoluteDifference","Group","nudged_y"
-"Tableau",24.46,0.24455595376912,"With MC",25.09596
-"Data Science",21.66,0.216617223403526,"With MC",22.29596
-"Data Visualization",20.9,0.208977667649816,"With MC",21.53596
-"Machine Learning",20.41,0.204131370464367,"With MC",21.04596
-"Data Analysis",20.01,0.200123893957062,"With MC",20.64596
-"Java",-9.89,0.0989021023389807,"Without MC",-10.52596
-"C++",-5.45,0.0545232011797792,"Without MC",-6.08596
-"Software Development",-5.23,0.0523398381233281,"Without MC",-5.86596
-"C (Programming Language)",-4.75,0.0475385543132817,"Without MC",-5.38596
-"Computer Science",-4.17,0.0417455472483252,"Without MC",-4.80596
+"Tableau",24,0.24455595376912,"With MC",26.5
+"Data Science",22,0.216617223403526,"With MC",24.5
+"Data Visualization",21,0.208977667649816,"With MC",23.5
+"Machine Learning",20,0.204131370464367,"With MC",22.5
+"Data Analysis",20,0.200123893957062,"With MC",22.5
+"Java",-10,0.0989021023389807,"Without MC",-12.5
+"C++",-5,0.0545232011797792,"Without MC",-7.5
+"Software Development",-5,0.0523398381233281,"Without MC",-7.5
+"C (Programming Language)",-5,0.0475385543132817,"Without MC",-7.5
+"Computer Science",-4,0.0417455472483252,"Without MC",-6.5

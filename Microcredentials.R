@@ -22,20 +22,23 @@ library(scales)
 library(openxlsx)
 
 
+# Run updated plot.column.dais code
+
+
 # Read in data
 # empty list to store the data tables
 data_list <- list()
 
 # files for fields of study and seniority
-stemvsbhase <- as.data.table(read_excel("Broad Fields of Study.xlsx"))
+stemvsbhase <- as.data.table(read_excel("broad_fields.xlsx"))  
 
 seniority <- as.data.table(read_excel("Title Seniority.xlsx", sheet = 1))
 
 seniority2 <- as.data.table(read_excel("Title Seniority.xlsx", sheet = 2))
 
-ict <- as.data.table(read_excel("ICT Sectors.xlsx"))
+ict <- as.data.table(read_excel("ICT_sectors.xlsx"))
 
-ict2 <- as.data.table(read_excel("ICT Sectors.xlsx", sheet = 2))
+ict2 <- as.data.table(read_excel("ICT_sectors.xlsx", sheet = 2))
 
 
 #################################
@@ -392,10 +395,9 @@ combined_data <- rbind(transform(top_5_diff_mc, Group = "With MC"),
 
 
 combined_data[, Difference := Difference * 100]
-combined_data[, Difference := round(Difference, 2)] 
+combined_data[, Difference := round(Difference, 0)] 
 
 
-# Run updated plot.column.dais code here first
 
 
  plot.column.dais(data = combined_data,
@@ -408,14 +410,14 @@ combined_data[, Difference := round(Difference, 2)]
                   column.width = 0.6,
                   colours = c("#eb0072", "black"),
                   label = TRUE,
-                  label.colour = "#A9A9A9",
                   label.unit = "%",
+                  label.adjust = 0.1,
                   language = "EN",
                   y.axis = "Common Skill",
                   legend.title = "Group",
                   caption = "Source: LinkedIn Talent Insights Data, July 2023",
                   logo = FALSE,
-                  export = FALSE) +coord_flip() +
+                  export = FALSE)  + coord_flip() +
                   scale_y_continuous(labels = function(x) paste0(x, "%")) 
                   #annotate("text", x = -2, y = 10, label = "DS: Data Scientists")
  
@@ -546,10 +548,9 @@ combined_data <- rbind(transform(top_5_diff_mc, Group = "With MC"),
 
 
 combined_data[, Difference := Difference * 100]
-combined_data[, Difference := round(Difference, 2)] 
+combined_data[, Difference := round(Difference, 0)] 
 
 
-# Run updated plot.column.dais code here first
 
 
 plot.column.dais(data = combined_data,
@@ -557,12 +558,12 @@ plot.column.dais(data = combined_data,
                  cat = Industry,
                  group.by = Group,
                  plot.title = "Data Scientists: Industries Differences \nBased on Microcredential Completion",
-                 plot.fig.num = "Figure 2",
+                 plot.fig.num = "Figure 11",
                  order.bar = "No",
                  column.width = 0.6,
                  colours = c("#eb0072", "black"),
                  label = TRUE,
-                 label.colour = "#A9A9A9",
+                 label.adjust = 0.1,
                  label.unit = "%",
                  language = "EN",
                  y.axis = "Industry",
@@ -574,10 +575,10 @@ plot.column.dais(data = combined_data,
 #annotate("text", x = -2, y = 10, label = "DS: Data Scientists")
 
 
-ggsave("Graphs_Exports/Figure_2.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ggsave("Graphs_Exports/Figure_11.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
 
-write.csv(combined_data, "Graphs_data/Figure_2.csv", row.names = FALSE)
+write.csv(combined_data, "Graphs_data/Figure_11.csv", row.names = FALSE)
 
 
 
@@ -708,10 +709,9 @@ combined_data_with_seniority <- combined_data_with_seniority %>%
 
 
 combined_data_with_seniority[, Difference := Difference * 100]
-combined_data_with_seniority[, Difference := round(Difference, 2)] 
+combined_data_with_seniority[, Difference := round(Difference, 0)] 
 
 
-# Run updated plot.column.dais code here first
 
 
 plot.column.dais(data = combined_data_with_seniority,
@@ -719,12 +719,12 @@ plot.column.dais(data = combined_data_with_seniority,
                  cat = Title_and_Seniority,
                  group.by = Group,
                  plot.title = "Data Scientists: Job Title Differences \nBased on Microcredential Completion",
-                 plot.fig.num = "Figure 3",
+                 plot.fig.num = "Figure 7",
                  order.bar = "No",
                  column.width = 0.6,
                  colours = c("#eb0072", "black"),
                  label = TRUE,
-                 label.colour = "#A9A9A9",
+                 label.adjust = 0.1,
                  label.unit = "%",
                  language = "EN",
                  y.axis = "Job Titles",
@@ -736,9 +736,9 @@ plot.column.dais(data = combined_data_with_seniority,
 #annotate("text", x = -2, y = 10, label = "DS: Data Scientists")
 
 
-ggsave("Graphs_Exports/Figure_3.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ggsave("Graphs_Exports/Figure_7.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-write.csv(combined_data_with_seniority, "Graphs_data/Figure_3.csv", row.names = FALSE)
+write.csv(combined_data_with_seniority, "Graphs_data/Figure_7.csv", row.names = FALSE)
 
 
 
@@ -864,10 +864,9 @@ combined_data_with_broad_field <- combined_data_with_broad_field %>%
 
 
 combined_data_with_broad_field[, Difference := Difference * 100]
-combined_data_with_broad_field[, Difference := round(Difference, 2)] 
+combined_data_with_broad_field[, Difference := round(Difference, 0)] 
 
 
-# Run updated plot.column.dais code here first
 
 
 plot.column.dais(data = combined_data_with_broad_field,
@@ -880,7 +879,7 @@ plot.column.dais(data = combined_data_with_broad_field,
                  column.width = 0.6,
                  colours = c("#eb0072", "black"),
                  label = TRUE,
-                 label.colour = "#A9A9A9",
+                 label.adjust = 0.1,
                  label.unit = "%",
                  language = "EN",
                  y.axis = "Field of Study",
@@ -892,9 +891,9 @@ plot.column.dais(data = combined_data_with_broad_field,
 #annotate("text", x = -2, y = 10, label = "DS: Data Scientists")
 
 
-ggsave("Graphs_Exports/Figure_4.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+#ggsave("Graphs_Exports/Figure_4.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-write.csv(combined_data_with_broad_field, "Graphs_data/Figure_4.csv", row.names = FALSE)
+#write.csv(combined_data_with_broad_field, "Graphs_data/Figure_4.csv", row.names = FALSE)
 
 
 
@@ -1041,23 +1040,22 @@ combined_data <- rbind(transform(top_5_diff_mc, Group = "With MC"),
 
 
 combined_data[, Difference := Difference * 100]
-combined_data[, Difference := round(Difference, 2)] 
+combined_data[, Difference := round(Difference, 0)] 
 
 
-# Run updated plot.column.dais code here first
 
 
 plot.column.dais(data = combined_data,
                  x = Difference,
                  cat = `Common Skill`,
                  group.by = Group,
-                 plot.title = "Software Engineers: Skills Reporting Differences \nBased on Microcredential Completion",
-                 plot.fig.num = "Figure 5",
+                 plot.title = "Software Professionals: Skills Reporting Differences \nBased on Microcredential Completion",
+                 plot.fig.num = "Figure 2",
                  order.bar = "No",
                  column.width = 0.6,
                  colours = c("#5bc2f4", "black"),
                  label = TRUE,
-                 label.colour = "#A9A9A9",
+                 label.adjust = 0.1,
                  label.unit = "%",
                  language = "EN",
                  y.axis = "Common Skill",
@@ -1068,9 +1066,9 @@ plot.column.dais(data = combined_data,
   scale_y_continuous(labels = function(x) paste0(x, "%")) 
 #annotate("text", x = -2, y = 10, label = "DS: Data Scientists")
 
-ggsave("Graphs_Exports/Figure_5.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ggsave("Graphs_Exports/Figure_2.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-write.csv(combined_data, "Graphs_data/Figure_5.csv", row.names = FALSE)
+write.csv(combined_data, "Graphs_data/Figure_2.csv", row.names = FALSE)
 
 
 
@@ -1190,23 +1188,22 @@ combined_data <- rbind(transform(top_5_diff_mc, Group = "With MC"),
 
 
 combined_data[, Difference := Difference * 100]
-combined_data[, Difference := round(Difference, 2)] 
+combined_data[, Difference := round(Difference, 0)] 
 
 
-# Run updated plot.column.dais code here first
 
 
 plot.column.dais(data = combined_data,
                  x = Difference,
                  cat = Industry,
                  group.by = Group,
-                 plot.title = "Software Engineers: Industry Differences \nBased on Microcredential Completion",
-                 plot.fig.num = "Figure 6",
+                 plot.title = "Software Professionals: Industry Differences \nBased on Microcredential Completion",
+                 plot.fig.num = "Figure 12",
                  order.bar = "No",
                  column.width = 0.6,
                  colours = c("#5bc2f4", "black"),
                  label = TRUE,
-                 label.colour = "#A9A9A9",
+                 label.adjust = 0.1,
                  label.unit = "%",
                  language = "EN",
                  y.axis = "Industry",
@@ -1218,9 +1215,9 @@ plot.column.dais(data = combined_data,
 #annotate("text", x = -2, y = 10, label = "DS: Data Scientists")
 
 
-ggsave("Graphs_Exports/Figure_6.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ggsave("Graphs_Exports/Figure_12.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-write.csv(combined_data, "Graphs_data/Figure_6.csv", row.names = FALSE)
+write.csv(combined_data, "Graphs_data/Figure_12.csv", row.names = FALSE)
 
 
 
@@ -1350,23 +1347,22 @@ combined_data_with_seniority <- combined_data_with_seniority %>%
 
 
 combined_data_with_seniority[, Difference := Difference * 100]
-combined_data_with_seniority[, Difference := round(Difference, 2)] 
+combined_data_with_seniority[, Difference := round(Difference, 0)] 
 
 
-# Run updated plot.column.dais code here first
 
 
 plot.column.dais(data = combined_data_with_seniority,
                  x = Difference,
                  cat = Title_and_Seniority,
                  group.by = Group,
-                 plot.title = "Software Engineers: Job Title Differences \nBased on Microcredential Completion",
-                 plot.fig.num = "Figure 7",
+                 plot.title = "Software Professionals: Job Title Differences \nBased on Microcredential Completion",
+                 plot.fig.num = "Figure 8",
                  order.bar = "No",
                  column.width = 0.6,
                  colours = c("#5bc2f4", "black"),
                  label = TRUE,
-                 label.colour = "#A9A9A9",
+                 label.adjust = 0.1,
                  label.unit = "%",
                  language = "EN",
                  y.axis = "Job Titles",
@@ -1378,9 +1374,9 @@ plot.column.dais(data = combined_data_with_seniority,
 #annotate("text", x = -2, y = 10, label = "DS: Data Scientists")
 
 
-ggsave("Graphs_Exports/Figure_7.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+#ggsave("Graphs_Exports/Figure_8.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-write.csv(combined_data_with_seniority, "Graphs_data/Figure_7.csv", row.names = FALSE)
+#write.csv(combined_data_with_seniority, "Graphs_data/Figure_8.csv", row.names = FALSE)
 
 
 
@@ -1507,23 +1503,22 @@ combined_data_with_broad_field <- combined_data_with_broad_field %>%
 
 
 combined_data_with_broad_field[, Difference := Difference * 100]
-combined_data_with_broad_field[, Difference := round(Difference, 2)] 
+combined_data_with_broad_field[, Difference := round(Difference, 0)] 
 
 
-# Run updated plot.column.dais code here first
 
 
 plot.column.dais(data = combined_data_with_broad_field,
                  x = Difference,
                  cat = Study_Field_and_Broad,
                  group.by = Group,
-                 plot.title = "Software Engineers: Field of Study Differences \nBased on Microcredential Completion",
+                 plot.title = "Software Professionals: Field of Study Differences \nBased on Microcredential Completion",
                  plot.fig.num = "Figure 8",
                  order.bar = "No",
                  column.width = 0.6,
                  colours = c("#5bc2f4", "black"),
                  label = TRUE,
-                 label.colour = "#A9A9A9",
+                 label.adjust = 0.1,
                  label.unit = "%",
                  language = "EN",
                  y.axis = "Field of Study",
@@ -1598,31 +1593,38 @@ data[, NormalizedProfessionals := Professionals / sum(Professionals), by = Group
 
 
 
-#Add STEM VS BHASE 
-combined_data_with_broad_field <- merge(data, stemvsbhase,
-                                        by.x = "Field of Study", 
-                                        by.y = "Fields of study",all.x = TRUE)
+setkey(data, `Field of Study`)
+setkey(stemvsbhase, `Fields of study`)
+combined_data_with_broad_field <- data[stemvsbhase, nomatch = 0]
+
+
 
 combined_data_with_broad_field <- combined_data_with_broad_field %>%
   mutate(Study_Field_and_Broad = paste(`Field of Study`, "\n(", `Broad Field of Study`, ")", sep = ""))
 
-combined_data_with_broad_field <- na.omit(combined_data_with_broad_field)
 
 grouped_data <- combined_data_with_broad_field[, .(NormalizedProfessionals = sum(NormalizedProfessionals, na.rm = TRUE)), by = .(`Broad Field of Study`, Group)]
 
+names(grouped_data) <- c("broad_field_of_study","Group","NormalizedProfessionals")
+
 dais_palette <- c("#DDA5C0", "#6bbfae" , "#ffa300",  "#002d72", "#eb0072" ,"#5bc2f4" )
 
-# Re-run old plot.column.dais first and re-run first section of code without comparisons.
+
+# Make sure to run the updated plot.column.dais first
+
+grouped_data <- grouped_data[, NormalizedProfessionals := NormalizedProfessionals * 100 ]
+grouped_data[, NormalizedProfessionals := round(NormalizedProfessionals, 0)] 
+
 
 plot.column.dais(data = grouped_data,
                  x = NormalizedProfessionals,
                  cat = Group,
-                 group.by = `Broad Field of Study`,
+                 group.by = broad_field_of_study,
                  plot.title = "Data Scientists: Normalized Professionals \nIn STEM and BHASE",
-                 plot.fig.num = "Figure 9",
+                 plot.fig.num = "Figure 3",
                  order.bar = "No",
                  column.width = 0.6,
-                 colours = c("#6bbfae", "#DDA5C0"),
+                 colours = c("#fcd8ad","#f7941e"),
                  label = TRUE,
                  label.unit = "%",
                  language = "EN",
@@ -1634,9 +1636,9 @@ plot.column.dais(data = grouped_data,
                  stacked = TRUE)
 
 
-ggsave("Graphs_Exports/Figure_9.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ggsave("Graphs_Exports/Figure_3.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-write.csv(grouped_data, "Graphs_data/Figure_9.csv", row.names = FALSE)
+write.csv(grouped_data, "Graphs_data/Figure_3.csv", row.names = FALSE)
 
 
 ##### Software Engineers
@@ -1654,9 +1656,10 @@ data[, NormalizedProfessionals := Professionals / sum(Professionals), by = Group
 
 
 #Add STEM VS BHASE 
-combined_data_with_broad_field <- merge(data, stemvsbhase,
-                                        by.x = "Field of Study", 
-                                        by.y = "Fields of study",all.x = TRUE)
+setkey(data, `Field of Study`)
+setkey(stemvsbhase, `Fields of study`)
+combined_data_with_broad_field <- data[stemvsbhase, nomatch = 0]
+
 
 combined_data_with_broad_field <- combined_data_with_broad_field %>%
   mutate(Study_Field_and_Broad = paste(`Field of Study`, "\n(", `Broad Field of Study`, ")", sep = ""))
@@ -1665,15 +1668,18 @@ combined_data_with_broad_field <- na.omit(combined_data_with_broad_field)
 
 grouped_data <- combined_data_with_broad_field[, .(NormalizedProfessionals = sum(NormalizedProfessionals, na.rm = TRUE)), by = .(`Broad Field of Study`, Group)]
 
+grouped_data <- grouped_data[, NormalizedProfessionals := NormalizedProfessionals * 100 ]
+grouped_data[, NormalizedProfessionals := round(NormalizedProfessionals, 0)] 
+
 plot.column.dais(data = grouped_data,
                  x = NormalizedProfessionals,
                  cat = Group,
                  group.by = `Broad Field of Study`,
-                 plot.title = "Software Engineers: Normalized Professionals \nIn STEM and BHASE",
-                 plot.fig.num = "Figure 10",
+                 plot.title = "Software Professionals: Normalized Professionals \nIn STEM and BHASE",
+                 plot.fig.num = "Figure 4",
                  order.bar = "No",
                  column.width = 0.6,
-                 colours = c("#6bbfae", "#DDA5C0"),
+                 colours = c("#ffeba2","#ffc800"),
                  label = TRUE,
                  label.unit = "%",
                  language = "EN",
@@ -1686,9 +1692,9 @@ plot.column.dais(data = grouped_data,
 
 
 
-ggsave("Graphs_Exports/Figure_10.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ggsave("Graphs_Exports/Figure_4.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-write.csv(grouped_data, "Graphs_data/Figure_10.csv", row.names = FALSE)
+write.csv(grouped_data, "Graphs_data/Figure_4.csv", row.names = FALSE)
 
 
 ######################################################################
@@ -1722,16 +1728,18 @@ grouped_data <- combined_data_with_seniority[, .(NormalizedProfessionals = sum(N
 
 dais_palette <- c("#DDA5C0", "#6bbfae" , "#ffa300",  "#002d72", "#eb0072" ,"#5bc2f4" )
 
+grouped_data <- grouped_data[, NormalizedProfessionals := NormalizedProfessionals * 100 ]
+grouped_data[, NormalizedProfessionals := round(NormalizedProfessionals, 0)] 
 
 plot.column.dais(data = grouped_data,
                  x = NormalizedProfessionals,
                  cat = Group,
                  group.by = Seniority,
                  plot.title = "Data Scientists: Normalized Professionals \nBy Seniority",
-                 plot.fig.num = "Figure 11",
+                 plot.fig.num = "Figure 9",
                  order.bar = "No",
                  column.width = 0.6,
-                 colours = c("#14365d", "#4c6282","#94a3b5"),
+                 colours = c("#dd347a", "#e66b9e","#f2b5ce"),
                  label = TRUE,
                  label.unit = "%",
                  language = "EN",
@@ -1742,9 +1750,9 @@ plot.column.dais(data = grouped_data,
                  export = FALSE) + coord_flip()
 
 
-ggsave("Graphs_Exports/Figure_11.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ggsave("Graphs_Exports/Figure_9.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-write.csv(grouped_data, "Graphs_data/Figure_11.csv", row.names = FALSE)
+write.csv(grouped_data, "Graphs_data/Figure_9.csv", row.names = FALSE)
 
 
 #####
@@ -1783,16 +1791,19 @@ combined_data_with_seniority[, Title_and_Seniority := paste(`Common Title`, "\n(
 
 grouped_data <- combined_data_with_seniority[, .(NormalizedProfessionals = sum(NormalizedProfessionals, na.rm = TRUE)), by = .(Seniority, Group)]
 
+grouped_data <- grouped_data[, NormalizedProfessionals := NormalizedProfessionals * 100 ]
+grouped_data[, NormalizedProfessionals := round(NormalizedProfessionals, 0)] 
+
 
 plot.column.dais(data = grouped_data,
                  x = NormalizedProfessionals,
                  cat = Group,
                  group.by = Seniority,
-                 plot.title = "Software Engineers: Normalized Professionals \nBy Seniority",
-                 plot.fig.num = "Figure 12",
+                 plot.title = "Software Professionals: Normalized Professionals \nBy Seniority",
+                 plot.fig.num = "Figure 10",
                  order.bar = "No",
                  column.width = 0.6,
-                 colours = c("#3c7d78", "#679894","#CEDFDD"),
+                 colours = c("#14365d", "#4c6282","#94a3b5"),
                  label = TRUE,
                  label.unit = "%",
                  language = "EN",
@@ -1803,9 +1814,9 @@ plot.column.dais(data = grouped_data,
                  export = FALSE) + coord_flip()
 
 
-ggsave("Graphs_Exports/Figure_12.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ggsave("Graphs_Exports/Figure_10.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-write.csv(grouped_data, "Graphs_data/Figure_12.csv", row.names = FALSE)
+write.csv(grouped_data, "Graphs_data/Figure_10.csv", row.names = FALSE)
 
 #####
 # Find if the difference in Entry level between groups is stat. significant
@@ -1857,14 +1868,18 @@ data[, NormalizedProfessionals := Professionals / sum(Professionals), by = Group
 
 setkey(ict,Industry)
 setkey(data,Industry)
-
-combined_data_with_ict <- data[ict,on="Industry"]
+combined_data_with_ict <- data[ict,on="Industry",nomatch = NA]
 
 combined_data_with_ict <- na.omit(combined_data_with_ict)
 
 grouped_data <- combined_data_with_ict[, .(NormalizedProfessionals = sum(NormalizedProfessionals, na.rm = TRUE)), by = .(ICT, Group)]
 
 grouped_data[, ICT := ifelse(ICT == 0, "Non-ICT", "ICT")]
+
+
+grouped_data <- grouped_data[, NormalizedProfessionals := NormalizedProfessionals * 100 ]
+grouped_data[, NormalizedProfessionals := round(NormalizedProfessionals, 0)] 
+
 
 plot.column.dais(
   data = grouped_data,
@@ -1877,6 +1892,7 @@ plot.column.dais(
   column.width = 0.6,
   colours = c("#fcd8ad","#f7941e"),
   label = TRUE,
+  label.unit = "%",
   y.axis = "Normalized Professionals",
   legend.title = "Industry",
   caption = "Source: LinkedIn Talent Insights Data, July 2023",
@@ -1903,10 +1919,10 @@ data <- rbind(
 data[, NormalizedProfessionals := Professionals / sum(Professionals), by = Group]
 
 
-setkey(ict,Industry)
+setkey(ict2,Industry)
 setkey(data,Industry)
 
-combined_data_with_ict <- data[ict,on="Industry"]
+combined_data_with_ict <- data[ict2,on="Industry"]
 
 combined_data_with_ict <- na.omit(combined_data_with_ict)
 
@@ -1914,17 +1930,22 @@ grouped_data <- combined_data_with_ict[, .(NormalizedProfessionals = sum(Normali
 
 grouped_data[, ICT := ifelse(ICT == 0, "Non-ICT", "ICT")]
 
+grouped_data <- grouped_data[, NormalizedProfessionals := NormalizedProfessionals * 100 ]
+grouped_data[, NormalizedProfessionals := round(NormalizedProfessionals, 0)] 
+
+
 plot.column.dais(
   data = grouped_data,
   x = NormalizedProfessionals,
   cat = Group,
   group.by = ICT,
-  plot.title = "Software Engineers: Normalized Professionals \nIn ICT",
+  plot.title = "Software Professionals: Normalized Professionals \nIn ICT",
   plot.fig.num = "Figure 14",
   order.bar = "No",
   column.width = 0.6,
   colours = c("#ffeba2","#ffc800"),
   label = TRUE,
+  label.unit = "%",
   y.axis = "Normalized Professionals",
   legend.title = "Industry",
   caption = "Source: LinkedIn Talent Insights Data, July 2023",
@@ -1954,7 +1975,7 @@ data <- rbind(
 data[, NormalizedProfessionals := Professionals / sum(Professionals), by = Group]
 
 data[, NormalizedProfessionals := NormalizedProfessionals * 100]
-data[, NormalizedProfessionals := round(NormalizedProfessionals, 2)]
+data[, NormalizedProfessionals := round(NormalizedProfessionals, 0)]
 
 
 plot.column.dais(
@@ -1963,10 +1984,10 @@ plot.column.dais(
   cat = Group,
   group.by = Degree,
   plot.title = "Data Scientists: Normalized Professionals \nBy Degree",
-  plot.fig.num = "Figure 15",
+  plot.fig.num = "Figure 5",
   order.bar = "No",
   column.width = 0.6,
-  colours = c("#14365d", "#4f6885","#4c6282","#8a9bae","#94a3b5"),
+  colours = c("#14365d", "#ffa5b9","#8ad4df","#dd347a","#c37546"),
   label = FALSE,
   y.axis = "Normalized Professionals",
   legend.title = "Degree",
@@ -1976,13 +1997,13 @@ plot.column.dais(
   geom_text(aes(label = paste0(NormalizedProfessionals, "%")), 
             position = position_dodge(width = 0.65), 
             vjust = 0.25, 
-            colour = "black") + coord_flip()
+            colour = "black") 
 
 
 
-ggsave("Graphs_Exports/Figure_15.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ggsave("Graphs_Exports/Figure_5.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-write.csv(grouped_data, "Graphs_data/Figure_15.csv", row.names = FALSE)
+write.csv(grouped_data, "Graphs_data/Figure_5.csv", row.names = FALSE)
 
 
 
@@ -1998,7 +2019,7 @@ data <- rbind(
 data[, NormalizedProfessionals := Professionals / sum(Professionals), by = Group]
 
 data[, NormalizedProfessionals := NormalizedProfessionals * 100]
-data[, NormalizedProfessionals := round(NormalizedProfessionals, 2)]
+data[, NormalizedProfessionals := round(NormalizedProfessionals, 0)]
 
 
 plot.column.dais(
@@ -2006,11 +2027,11 @@ plot.column.dais(
   x = NormalizedProfessionals,
   cat = Group,
   group.by = Degree,
-  plot.title = "Software Engineers: Normalized Professionals \nBy Degree",
-  plot.fig.num = "Figure 16",
+  plot.title = "Software Professionals: Normalized Professionals \nBy Degree",
+  plot.fig.num = "Figure 6",
   order.bar = "No",
   column.width = 0.6,
-  colours = c("#3c7d78", "#6d9e9a","#679894","#9ebebc","#CEDFDD"),
+  colours = c("#14365d", "#ffa5b9","#8ad4df","#dd347a","#c37546"),
   label = FALSE,
   y.axis = "Normalized Professionals",
   legend.title = "Degree",
@@ -2020,13 +2041,13 @@ plot.column.dais(
   geom_text(aes(label = paste0(NormalizedProfessionals, "%")), 
             position = position_dodge(width = 0.65), 
             vjust = 0.25, 
-            colour = "black") + coord_flip()
+            colour = "black") 
 
 
 
-ggsave("Graphs_Exports/Figure_16.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ggsave("Graphs_Exports/Figure_6.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-write.csv(grouped_data, "Graphs_data/Figure_16.csv", row.names = FALSE)
+write.csv(grouped_data, "Graphs_data/Figure_6.csv", row.names = FALSE)
 
 
 
