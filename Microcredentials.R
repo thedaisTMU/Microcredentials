@@ -1999,7 +1999,7 @@ plot.column.dais(
   export = FALSE) + scale_y_continuous(labels = function(x) paste0(x, "%")) +
   geom_text(aes(label = paste0(NormalizedProfessionals, "%")), 
             position = position_dodge(width = 0.65), 
-            vjust = 0.25, 
+            vjust = -0.25, 
             colour = "black") 
 
 
@@ -2046,7 +2046,7 @@ plot.column.dais(
   export = FALSE) + scale_y_continuous(labels = function(x) paste0(x, "%")) +
   geom_text(aes(label = paste0(NormalizedProfessionals, "%")), 
             position = position_dodge(width = 0.65), 
-            vjust = 0.25, 
+            vjust = -0.25, 
             colour = "black") 
 
 
