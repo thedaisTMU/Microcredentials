@@ -1374,9 +1374,9 @@ plot.column.dais(data = combined_data_with_seniority,
 #annotate("text", x = -2, y = 10, label = "DS: Data Scientists")
 
 
-#ggsave("Graphs_Exports/Figure_8.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
+ggsave("Graphs_Exports/Figure_8.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
-#write.csv(combined_data_with_seniority, "Graphs_data/Figure_8.csv", row.names = FALSE)
+write.csv(combined_data_with_seniority, "Graphs_data/Figure_8.csv", row.names = FALSE)
 
 
 
