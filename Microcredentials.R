@@ -2,6 +2,8 @@
 rm(list=ls())
 graphics.off()
 
+# Run updated (plot.column.dais - 2) code
+
 # set working directory
 setwd("C:/Users/Ibrahim/OneDrive/Desktop/Brookfield 2023/Microcredentials")
 
@@ -22,8 +24,6 @@ library(scales)
 library(openxlsx)
 
 
-# Run updated (plot.column.dais - 2) code
-
 
 # Read in data
 # empty list to store the data tables
@@ -39,6 +39,10 @@ seniority2 <- as.data.table(read_excel("Title Seniority.xlsx", sheet = 2))
 ict <- as.data.table(read_excel("ICT_sectors.xlsx"))
 
 ict2 <- as.data.table(read_excel("ICT_sectors.xlsx", sheet = 2))
+
+graphs_spreadsheet <- fread("Graphs_Data/Graphs_spreadsheet.csv")
+graphs_spreadsheet[, Figure_title := gsub("\\\\n", "\n", Figure_title)]
+
 
 
 #################################
@@ -398,28 +402,27 @@ combined_data[, Difference := Difference * 100]
 combined_data[, Difference := round(Difference, 0)] 
 
 
+plot.column.dais(data = combined_data,
+                 x = Difference,
+                 cat = `Common Skill`,
+                 group.by = Group,
+                 plot.title = graphs_spreadsheet[Figure_number == "Figure 1", Figure_title],
+                 plot.fig.num = graphs_spreadsheet[Figure_number == "Figure 1", Figure_number],
+                 order.bar = "No",
+                 column.width = 0.6,
+                 colours = c("#eb0072", "black"),
+                 label = TRUE,
+                 label.unit = graphs_spreadsheet[Figure_number == "Figure 1", X_Axis_Ticks],
+                 label.adjust = 0.1,
+                 language = "EN",
+                 y.axis = graphs_spreadsheet[Figure_number == "Figure 1", Y_Axis],
+                 legend.title = graphs_spreadsheet[Figure_number == "Figure 1", Legends],
+                 caption = graphs_spreadsheet[Figure_number == "Figure 1", Caption],
+                 logo = FALSE,
+                 export = FALSE) + coord_flip() + 
+  scale_y_continuous(labels = function(x) paste0(x, "%"))
+#annotate("text", x = -2, y = 10, label = "DS: Data Scientists")
 
-
- plot.column.dais(data = combined_data,
-                  x = Difference,
-                  cat = `Common Skill`,
-                  group.by = Group,
-                  plot.title = "Data Scientists: Skills Reporting Differences \nBased on Microcredential Completion",
-                  plot.fig.num = "Figure 1",
-                  order.bar = "No",
-                  column.width = 0.6,
-                  colours = c("#eb0072", "black"),
-                  label = TRUE,
-                  label.unit = "%",
-                  label.adjust = 0.1,
-                  language = "EN",
-                  y.axis = "Common Skill",
-                  legend.title = "Group",
-                  caption = "Source: LinkedIn Talent Insights Data, July 2023",
-                  logo = FALSE,
-                  export = FALSE)  + coord_flip() +
-                  scale_y_continuous(labels = function(x) paste0(x, "%")) 
-                  #annotate("text", x = -2, y = 10, label = "DS: Data Scientists")
  
  
 ggsave("Graphs_Exports/Figure_1.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
@@ -557,22 +560,23 @@ plot.column.dais(data = combined_data,
                  x = Difference,
                  cat = Industry,
                  group.by = Group,
-                 plot.title = "Data Scientists: Industries Differences \nBased on Microcredential Completion",
-                 plot.fig.num = "Figure 11",
+                 plot.title = graphs_spreadsheet[Figure_number == "Figure 11", Figure_title],
+                 plot.fig.num = graphs_spreadsheet[Figure_number == "Figure 11", Figure_number],
                  order.bar = "No",
                  column.width = 0.6,
                  colours = c("#eb0072", "black"),
                  label = TRUE,
                  label.adjust = 0.1,
-                 label.unit = "%",
+                 label.unit = graphs_spreadsheet[Figure_number == "Figure 11", X_Axis_Ticks],
                  language = "EN",
-                 y.axis = "Industry",
-                 legend.title = "Group",
-                 caption = "Source: LinkedIn Talent Insights Data, July 2023",
+                 y.axis = graphs_spreadsheet[Figure_number == "Figure 11", Y_Axis],
+                 legend.title = graphs_spreadsheet[Figure_number == "Figure 11", Legends],
+                 caption = graphs_spreadsheet[Figure_number == "Figure 11", Caption],
                  logo = FALSE,
-                 export = FALSE) +coord_flip() +
-  scale_y_continuous(labels = function(x) paste0(x, "%")) 
+                 export = FALSE) + coord_flip() + 
+  scale_y_continuous(labels = function(x) paste0(x, "%"))
 #annotate("text", x = -2, y = 10, label = "DS: Data Scientists")
+
 
 
 ggsave("Graphs_Exports/Figure_11.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
@@ -718,22 +722,23 @@ plot.column.dais(data = combined_data_with_seniority,
                  x = Difference,
                  cat = Title_and_Seniority,
                  group.by = Group,
-                 plot.title = "Data Scientists: Job Title Differences \nBased on Microcredential Completion",
-                 plot.fig.num = "Figure 7",
+                 plot.title = graphs_spreadsheet[Figure_number == "Figure 7", Figure_title],
+                 plot.fig.num = graphs_spreadsheet[Figure_number == "Figure 7", Figure_number],
                  order.bar = "No",
                  column.width = 0.6,
                  colours = c("#eb0072", "black"),
                  label = TRUE,
                  label.adjust = 0.1,
-                 label.unit = "%",
+                 label.unit = graphs_spreadsheet[Figure_number == "Figure 7", X_Axis_Ticks],
                  language = "EN",
-                 y.axis = "Job Titles",
-                 legend.title = "Group",
-                 caption = "Source: LinkedIn Talent Insights Data, July 2023",
+                 y.axis = graphs_spreadsheet[Figure_number == "Figure 7", Y_Axis],
+                 legend.title = graphs_spreadsheet[Figure_number == "Figure 7", Legends],
+                 caption = graphs_spreadsheet[Figure_number == "Figure 7", Caption],
                  logo = FALSE,
-                 export = FALSE) +coord_flip() + labs(x = "Job Titles and Seniority") +
-  scale_y_continuous(labels = function(x) paste0(x, "%")) 
+                 export = FALSE) + coord_flip() + labs(x = "Job Titles and Seniority") + 
+  scale_y_continuous(labels = function(x) paste0(x, "%"))
 #annotate("text", x = -2, y = 10, label = "DS: Data Scientists")
+
 
 
 ggsave("Graphs_Exports/Figure_7.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
@@ -1043,28 +1048,27 @@ combined_data[, Difference := Difference * 100]
 combined_data[, Difference := round(Difference, 0)] 
 
 
-
-
 plot.column.dais(data = combined_data,
                  x = Difference,
                  cat = `Common Skill`,
                  group.by = Group,
-                 plot.title = "Software Professionals: Skills Reporting Differences \nBased on Microcredential Completion",
-                 plot.fig.num = "Figure 2",
+                 plot.title = graphs_spreadsheet[Figure_number == "Figure 2", Figure_title],
+                 plot.fig.num = graphs_spreadsheet[Figure_number == "Figure 2", Figure_number],
                  order.bar = "No",
                  column.width = 0.6,
                  colours = c("#5bc2f4", "black"),
                  label = TRUE,
                  label.adjust = 0.1,
-                 label.unit = "%",
+                 label.unit = graphs_spreadsheet[Figure_number == "Figure 2", X_Axis_Ticks],
                  language = "EN",
-                 y.axis = "Common Skill",
-                 legend.title = "Group",
-                 caption = "Source: LinkedIn Talent Insights Data, July 2023",
+                 y.axis = graphs_spreadsheet[Figure_number == "Figure 2", Y_Axis],
+                 legend.title = graphs_spreadsheet[Figure_number == "Figure 2", Legends],
+                 caption = graphs_spreadsheet[Figure_number == "Figure 2", Caption],
                  logo = FALSE,
-                 export = FALSE) +coord_flip() +
-  scale_y_continuous(labels = function(x) paste0(x, "%")) 
+                 export = FALSE) + coord_flip() + 
+  scale_y_continuous(labels = function(x) paste0(x, "%"))
 #annotate("text", x = -2, y = 10, label = "DS: Data Scientists")
+
 
 ggsave("Graphs_Exports/Figure_2.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
@@ -1197,22 +1201,23 @@ plot.column.dais(data = combined_data,
                  x = Difference,
                  cat = Industry,
                  group.by = Group,
-                 plot.title = "Software Professionals: Industry Differences \nBased on Microcredential Completion",
-                 plot.fig.num = "Figure 12",
+                 plot.title = graphs_spreadsheet[Figure_number == "Figure 12", Figure_title],
+                 plot.fig.num = graphs_spreadsheet[Figure_number == "Figure 12", Figure_number],
                  order.bar = "No",
                  column.width = 0.6,
                  colours = c("#5bc2f4", "black"),
                  label = TRUE,
                  label.adjust = 0.1,
-                 label.unit = "%",
+                 label.unit = graphs_spreadsheet[Figure_number == "Figure 12", X_Axis_Ticks],
                  language = "EN",
-                 y.axis = "Industry",
-                 legend.title = "Group",
-                 caption = "Source: LinkedIn Talent Insights Data, July 2023",
+                 y.axis = graphs_spreadsheet[Figure_number == "Figure 12", Y_Axis],
+                 legend.title = graphs_spreadsheet[Figure_number == "Figure 12", Legends],
+                 caption = graphs_spreadsheet[Figure_number == "Figure 12", Caption],
                  logo = FALSE,
-                 export = FALSE) +coord_flip() +
-  scale_y_continuous(labels = function(x) paste0(x, "%")) 
+                 export = FALSE) + coord_flip() + 
+  scale_y_continuous(labels = function(x) paste0(x, "%"))
 #annotate("text", x = -2, y = 10, label = "DS: Data Scientists")
+
 
 
 ggsave("Graphs_Exports/Figure_12.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
@@ -1350,28 +1355,27 @@ combined_data_with_seniority[, Difference := Difference * 100]
 combined_data_with_seniority[, Difference := round(Difference, 0)] 
 
 
-
-
 plot.column.dais(data = combined_data_with_seniority,
                  x = Difference,
                  cat = Title_and_Seniority,
                  group.by = Group,
-                 plot.title = "Software Professionals: Job Title Differences \nBased on Microcredential Completion",
-                 plot.fig.num = "Figure 8",
+                 plot.title = graphs_spreadsheet[Figure_number == "Figure 8", Figure_title],
+                 plot.fig.num = graphs_spreadsheet[Figure_number == "Figure 8", Figure_number],
                  order.bar = "No",
                  column.width = 0.6,
                  colours = c("#5bc2f4", "black"),
                  label = TRUE,
                  label.adjust = 0.1,
-                 label.unit = "%",
+                 label.unit = graphs_spreadsheet[Figure_number == "Figure 8", X_Axis_Ticks],
                  language = "EN",
-                 y.axis = "Job Titles",
-                 legend.title = "Group",
-                 caption = "Source: LinkedIn Talent Insights Data, July 2023",
+                 y.axis = graphs_spreadsheet[Figure_number == "Figure 8", Y_Axis],
+                 legend.title = graphs_spreadsheet[Figure_number == "Figure 8", Legends],
+                 caption = graphs_spreadsheet[Figure_number == "Figure 8", Caption],
                  logo = FALSE,
-                 export = FALSE) +coord_flip() + labs(x = "Job Titles and Seniority") +
-  scale_y_continuous(labels = function(x) paste0(x, "%")) 
+                 export = FALSE) + coord_flip() + labs(x = "Job Titles and Seniority") + 
+  scale_y_continuous(labels = function(x) paste0(x, "%"))
 #annotate("text", x = -2, y = 10, label = "DS: Data Scientists")
+
 
 
 ggsave("Graphs_Exports/Figure_8.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
@@ -1620,20 +1624,21 @@ plot.column.dais(data = grouped_data,
                  x = NormalizedProfessionals,
                  cat = Group,
                  group.by = broad_field_of_study,
-                 plot.title = "Data Scientists: Normalized Professionals \nIn STEM and BHASE",
-                 plot.fig.num = "Figure 3",
+                 plot.title = graphs_spreadsheet[Figure_number == "Figure 3", Figure_title],
+                 plot.fig.num = graphs_spreadsheet[Figure_number == "Figure 3", Figure_number],
                  order.bar = "No",
                  column.width = 0.6,
                  colours = c("#fcd8ad","#f7941e"),
                  label = TRUE,
-                 label.unit = "%",
+                 label.unit = graphs_spreadsheet[Figure_number == "Figure 3", X_Axis_Ticks],
                  language = "EN",
-                 y.axis = "Normalized Professionals",
-                 legend.title = "Broad Field of Study",
-                 caption = "Source: LinkedIn Talent Insights Data, July 2023",
+                 y.axis = graphs_spreadsheet[Figure_number == "Figure 3", Y_Axis],
+                 legend.title = graphs_spreadsheet[Figure_number == "Figure 3", Legends],
+                 caption = graphs_spreadsheet[Figure_number == "Figure 3", Caption],
                  logo = FALSE,
                  export = FALSE,
                  stacked = TRUE)
+
 
 
 ggsave("Graphs_Exports/Figure_3.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
@@ -1675,17 +1680,17 @@ plot.column.dais(data = grouped_data,
                  x = NormalizedProfessionals,
                  cat = Group,
                  group.by = `Broad Field of Study`,
-                 plot.title = "Software Professionals: Normalized Professionals \nIn STEM and BHASE",
-                 plot.fig.num = "Figure 4",
+                 plot.title = graphs_spreadsheet[Figure_number == "Figure 4", Figure_title],
+                 plot.fig.num = graphs_spreadsheet[Figure_number == "Figure 4", Figure_number],
                  order.bar = "No",
                  column.width = 0.6,
                  colours = c("#ffeba2","#ffc800"),
                  label = TRUE,
-                 label.unit = "%",
+                 label.unit = graphs_spreadsheet[Figure_number == "Figure 4", X_Axis_Ticks],
                  language = "EN",
-                 y.axis = "Normalized Professionals",
-                 legend.title = "Broad Field of Study",
-                 caption = "Source: LinkedIn Talent Insights Data, July 2023",
+                 y.axis = graphs_spreadsheet[Figure_number == "Figure 4", Y_Axis],
+                 legend.title = graphs_spreadsheet[Figure_number == "Figure 4", Legends],
+                 caption = graphs_spreadsheet[Figure_number == "Figure 4", Caption],
                  logo = FALSE,
                  export = FALSE,
                  stacked = TRUE)
@@ -1735,19 +1740,20 @@ plot.column.dais(data = grouped_data,
                  x = NormalizedProfessionals,
                  cat = Group,
                  group.by = Seniority,
-                 plot.title = "Data Scientists: Normalized Professionals \nBy Seniority",
-                 plot.fig.num = "Figure 9",
+                 plot.title = graphs_spreadsheet[Figure_number == "Figure 9", Figure_title],
+                 plot.fig.num = graphs_spreadsheet[Figure_number == "Figure 9", Figure_number],
                  order.bar = "No",
                  column.width = 0.6,
                  colours = c("#dd347a", "#e66b9e","#f2b5ce"),
                  label = TRUE,
-                 label.unit = "%",
+                 label.unit = graphs_spreadsheet[Figure_number == "Figure 9", X_Axis_Ticks],
                  language = "EN",
-                 y.axis = "Normalized Professionals",
-                 legend.title = "Seniority",
-                 caption = "Source: LinkedIn Talent Insights Data, July 2023",
+                 y.axis = graphs_spreadsheet[Figure_number == "Figure 9", Y_Axis],
+                 legend.title = graphs_spreadsheet[Figure_number == "Figure 9", Legends],
+                 caption = graphs_spreadsheet[Figure_number == "Figure 9", Caption],
                  logo = FALSE,
                  export = FALSE) + coord_flip()
+
 
 
 ggsave("Graphs_Exports/Figure_9.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
@@ -1799,19 +1805,20 @@ plot.column.dais(data = grouped_data,
                  x = NormalizedProfessionals,
                  cat = Group,
                  group.by = Seniority,
-                 plot.title = "Software Professionals: Normalized Professionals \nBy Seniority",
-                 plot.fig.num = "Figure 10",
+                 plot.title = graphs_spreadsheet[Figure_number == "Figure 10", Figure_title],
+                 plot.fig.num = graphs_spreadsheet[Figure_number == "Figure 10", Figure_number],
                  order.bar = "No",
                  column.width = 0.6,
                  colours = c("#14365d", "#4c6282","#94a3b5"),
                  label = TRUE,
-                 label.unit = "%",
+                 label.unit = graphs_spreadsheet[Figure_number == "Figure 10", X_Axis_Ticks],
                  language = "EN",
-                 y.axis = "Normalized Professionals",
-                 legend.title = "Seniority",
-                 caption = "Source: LinkedIn Talent Insights Data, July 2023",
+                 y.axis = graphs_spreadsheet[Figure_number == "Figure 10", Y_Axis],
+                 legend.title = graphs_spreadsheet[Figure_number == "Figure 10", Legends],
+                 caption = graphs_spreadsheet[Figure_number == "Figure 10", Caption],
                  logo = FALSE,
                  export = FALSE) + coord_flip()
+
 
 
 ggsave("Graphs_Exports/Figure_10.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
@@ -1886,20 +1893,21 @@ plot.column.dais(
   x = NormalizedProfessionals,
   cat = Group,
   group.by = ICT,
-  plot.title = "Data Scientists: Normalized Professionals \nIn ICT",
-  plot.fig.num = "Figure 13",
+  plot.title = graphs_spreadsheet[Figure_number == "Figure 13", Figure_title],
+  plot.fig.num = graphs_spreadsheet[Figure_number == "Figure 13", Figure_number],
   order.bar = "No",
   column.width = 0.6,
   colours = c("#fcd8ad","#f7941e"),
   label = TRUE,
-  label.unit = "%",
-  y.axis = "Normalized Professionals",
-  legend.title = "Industry",
-  caption = "Source: LinkedIn Talent Insights Data, July 2023",
+  label.unit = graphs_spreadsheet[Figure_number == "Figure 13", X_Axis_Ticks],
+  y.axis = graphs_spreadsheet[Figure_number == "Figure 13", Y_Axis],
+  legend.title = graphs_spreadsheet[Figure_number == "Figure 13", Legends],
+  caption = graphs_spreadsheet[Figure_number == "Figure 13", Caption],
   logo = FALSE,
   export = FALSE,
   stacked = TRUE
 )
+
 
 ggsave("Graphs_Exports/Figure_13.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
@@ -1939,20 +1947,21 @@ plot.column.dais(
   x = NormalizedProfessionals,
   cat = Group,
   group.by = ICT,
-  plot.title = "Software Professionals: Normalized Professionals \nIn ICT",
-  plot.fig.num = "Figure 14",
+  plot.title = graphs_spreadsheet[Figure_number == "Figure 14", Figure_title],
+  plot.fig.num = graphs_spreadsheet[Figure_number == "Figure 14", Figure_number],
   order.bar = "No",
   column.width = 0.6,
   colours = c("#ffeba2","#ffc800"),
   label = TRUE,
-  label.unit = "%",
-  y.axis = "Normalized Professionals",
-  legend.title = "Industry",
-  caption = "Source: LinkedIn Talent Insights Data, July 2023",
+  label.unit = graphs_spreadsheet[Figure_number == "Figure 14", X_Axis_Ticks],
+  y.axis = graphs_spreadsheet[Figure_number == "Figure 14", Y_Axis],
+  legend.title = graphs_spreadsheet[Figure_number == "Figure 14", Legends],
+  caption = graphs_spreadsheet[Figure_number == "Figure 14", Caption],
   logo = FALSE,
   export = FALSE,
   stacked = TRUE
 )
+
 
 ggsave("Graphs_Exports/Figure_14.pdf", plot = last_plot(), width = 7.25, height = 7.25, units = "in")
 
@@ -1986,17 +1995,18 @@ plot.column.dais(
   x = NormalizedProfessionals,
   cat = Group,
   group.by = Degree,
-  plot.title = "Data Scientists: Normalized Professionals \nBy Degree",
-  plot.fig.num = "Figure 5",
+  plot.title = graphs_spreadsheet[Figure_number == "Figure 5", Figure_title],
+  plot.fig.num = graphs_spreadsheet[Figure_number == "Figure 5", Figure_number],
   order.bar = "No",
   column.width = 0.6,
   colours = c("#14365d", "#ffa5b9","#8ad4df","#dd347a","#c37546"),
   label = FALSE,
-  y.axis = "Normalized Professionals",
-  legend.title = "Degree",
-  caption = "Source: LinkedIn Talent Insights Data, July 2023",
+  y.axis = graphs_spreadsheet[Figure_number == "Figure 5", Y_Axis],
+  legend.title = graphs_spreadsheet[Figure_number == "Figure 5", Legends],
+  caption = graphs_spreadsheet[Figure_number == "Figure 5", Caption],
   logo = FALSE,
-  export = FALSE) + scale_y_continuous(labels = function(x) paste0(x, "%")) +
+  export = FALSE
+) + scale_y_continuous(labels = function(x) paste0(x, "%")) +
   geom_text(aes(label = paste0(NormalizedProfessionals, "%")), 
             position = position_dodge(width = 0.65), 
             vjust = -0.25, 
@@ -2033,17 +2043,18 @@ plot.column.dais(
   x = NormalizedProfessionals,
   cat = Group,
   group.by = Degree,
-  plot.title = "Software Professionals: Normalized Professionals \nBy Degree",
-  plot.fig.num = "Figure 6",
+  plot.title = graphs_spreadsheet[Figure_number == "Figure 6", Figure_title],
+  plot.fig.num = graphs_spreadsheet[Figure_number == "Figure 6", Figure_number],
   order.bar = "No",
   column.width = 0.6,
   colours = c("#14365d", "#ffa5b9","#8ad4df","#dd347a","#c37546"),
   label = FALSE,
-  y.axis = "Normalized Professionals",
-  legend.title = "Degree",
-  caption = "Source: LinkedIn Talent Insights Data, July 2023",
+  y.axis = graphs_spreadsheet[Figure_number == "Figure 6", Y_Axis],
+  legend.title = graphs_spreadsheet[Figure_number == "Figure 6", Legends],
+  caption = graphs_spreadsheet[Figure_number == "Figure 6", Caption],
   logo = FALSE,
-  export = FALSE) + scale_y_continuous(labels = function(x) paste0(x, "%")) +
+  export = FALSE
+) + scale_y_continuous(labels = function(x) paste0(x, "%")) +
   geom_text(aes(label = paste0(NormalizedProfessionals, "%")), 
             position = position_dodge(width = 0.65), 
             vjust = -0.25, 
